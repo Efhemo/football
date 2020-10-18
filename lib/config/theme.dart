@@ -1,22 +1,22 @@
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:football/utils/storage_util.dart';
 import 'package:theme_mode_handler/theme_mode_manager_interface.dart';
 
-class AppTheme with IThemeModeManager {
+class AppTheme extends IThemeModeManager {
 
-  static const _key = 'example_theme_mode';
+  final storage = StorageUtil();
 
   @override
   Future<String> loadThemeMode() async {
-    final _prefs = await SharedPreferences.getInstance();
-
-    return _prefs.getString(_key);
+    //final _prefs = await SharedPreferences.getInstance();
+    //return _prefs.getString(_key);
+    return storage.theme;
   }
 
   @override
   Future<bool> saveThemeMode(String value) async {
-    final _prefs = await SharedPreferences.getInstance();
-
-    return _prefs.setString(_key, value);
+    //final _prefs = await SharedPreferences.getInstance();
+    //return _prefs.setString(_key, value);
+    return storage.setTheme(value);
   }
 
 }

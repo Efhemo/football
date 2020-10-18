@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-class ProfileProvider with ChangeNotifier{
+class ProfileProvider with ChangeNotifier {
 
   var _isDarkMode = true;
 
