@@ -18,6 +18,9 @@ class ProfileScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
+            backgroundColor:  Theme.of(context).scaffoldBackgroundColor,
+            pinned: true,
+            floating: true,
             iconTheme: IconThemeData(),
             brightness: themeMode == ThemeMode.dark
                 ? Brightness.dark
@@ -57,11 +60,8 @@ class ProfileScreen extends StatelessWidget {
                     style: textTheme.headline6
                         .copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(height: 4.0),
-                Text(
-                  _user.name,
-                  style:
-                      textTheme.subtitle2.copyWith(fontWeight: FontWeight.w400),
-                )
+                Text(_user.name,
+                    style: textTheme.subtitle2.copyWith(fontWeight: FontWeight.w400))
               ],
             ),
           ),
@@ -73,14 +73,9 @@ class ProfileScreen extends StatelessWidget {
                   Consumer<ProfileProvider>(
                       builder: (context, profileProvider, child) {
                     return ListTile(
-                      leading: Icon(
-                        MdiIcons.moonWaningCrescent,
-                        size: 30.0,
-                      ),
-                      title: Text(
-                        "Dark mode",
-                        style: TextStyle(fontWeight: FontWeight.w500),
-                      ),
+                      leading: Icon(MdiIcons.moonWaningCrescent, size: 30.0),
+                      title: Text("Dark mode",
+                          style: TextStyle(fontWeight: FontWeight.w500)),
                       trailing: Switch.adaptive(
                         value: profileProvider.isDarkMode,
                         onChanged: (value) {
@@ -101,7 +96,6 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
-
 
   bool _setTheme(bool isDarkMode, BuildContext context) {
     var theme;
