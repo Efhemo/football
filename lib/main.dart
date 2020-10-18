@@ -30,13 +30,7 @@ class MyApp extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           themeMode: themeMode,
-          home: MultiProvider(
-            providers: [
-              ChangeNotifierProvider<ProfileProvider>(
-                  create: (context) => ProfileProvider())
-            ],
-            child: ProfileScreen(),
-          ),
+          home: ProfileScreen(),
         );
       },
     );

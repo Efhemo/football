@@ -70,24 +70,20 @@ class ProfileScreen extends StatelessWidget {
             sliver: SliverToBoxAdapter(
               child: Column(
                 children: <Widget>[
-                  Consumer<ProfileProvider>(
-                      builder: (context, profileProvider, child) {
-                    return ListTile(
-                      leading: Icon(MdiIcons.moonWaningCrescent, size: 30.0),
-                      title: Text("Dark mode",
-                          style: TextStyle(fontWeight: FontWeight.w500)),
-                      trailing: Switch.adaptive(
-                        value: profileProvider.isDarkMode,
-                        onChanged: (value) {
-                          _setTheme(value, context);
-                          profileProvider.isDarkMode = value;
-                        },
-                        activeColor: Colors.white,
-                        inactiveThumbColor: Colors.black,
-                        activeTrackColor: Colors.white,
-                      ),
-                    );
-                  })
+                  ListTile(
+                    leading: Icon(MdiIcons.moonWaningCrescent, size: 30.0),
+                    title: Text("Dark mode",
+                        style: TextStyle(fontWeight: FontWeight.w500)),
+                    trailing: Switch.adaptive(
+                      value: _isDarkMode(context),
+                      onChanged: (value) {
+                        _setTheme(value, context);
+                      },
+                      activeColor: Colors.white,
+                      inactiveThumbColor: Colors.black,
+                      activeTrackColor: Colors.white,
+                    ),
+                  )
                 ],
               ),
             ),
@@ -106,5 +102,14 @@ class ProfileScreen extends StatelessWidget {
     }
     ThemeModeHandler.of(context).saveThemeMode(theme);
     return isDarkMode;
+  }
+
+  bool _isDarkMode(BuildContext context) {
+    var theme =  ThemeModeHandler.of(context).themeMode;
+    if (theme == ThemeMode.dark) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
