@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:football/data/data.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
+import 'package:football/config/config.dart';
 
 class ProfileScreen extends StatelessWidget {
   final _user = user;
@@ -20,18 +21,14 @@ class ProfileScreen extends StatelessWidget {
             pinned: true,
             floating: true,
             iconTheme: IconThemeData(),
-            brightness: themeMode == ThemeMode.dark
-                ? Brightness.dark
-                : Brightness.light,
+            brightness: Palette.appBarTitleBrightness(themeMode),
             title: Text("Profile",
                 style: TextStyle(
-                    color: themeMode == ThemeMode.dark
-                        ? Colors.white
-                        : Colors.black,
+                    color: Palette.appBarTitleColor(themeMode),
                     fontWeight: FontWeight.bold)),
             centerTitle: false,
             leading:
-                IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () {}),
+                IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () {Navigator.pop(context);}),
             actions: <Widget>[
               IconButton(icon: Icon(Icons.track_changes), onPressed: () {})
             ],
@@ -40,17 +37,20 @@ class ProfileScreen extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 SizedBox(height: 50.0),
-                Container(
-                  height: 120.0,
-                  width: 120.0,
-                  padding: EdgeInsets.all(20.0),
-                  decoration: BoxDecoration(
-                      color: themeMode == ThemeMode.dark
-                          ? Colors.white
-                          : Colors.black45,
-                      shape: BoxShape.circle),
-                  child: CircleAvatar(
-                    backgroundImage: CachedNetworkImageProvider(_user.avatar),
+                Hero(
+                  tag: "profile-avatar",
+                  child: Container(
+                    height: 120.0,
+                    width: 120.0,
+                    padding: EdgeInsets.all(20.0),
+                    decoration: BoxDecoration(
+                        color: themeMode == ThemeMode.dark
+                            ? Colors.white
+                            : Colors.black45,
+                        shape: BoxShape.circle),
+                    child: CircleAvatar(
+                      backgroundImage: CachedNetworkImageProvider(_user.avatar),
+                    ),
                   ),
                 ),
                 SizedBox(height: 14.0),

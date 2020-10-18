@@ -26,7 +26,11 @@ class MyApp extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           themeMode: themeMode,
-          home: ProfileScreen(),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => HomeScreen(),
+            '/profileScreen' : (context) => ProfileScreen()
+          },
         );
       },
     );
