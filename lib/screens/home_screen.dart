@@ -20,18 +20,17 @@ class HomeScreen extends StatelessWidget {
               actions: <Widget>[
                 InkWell(
                   onTap: () => Navigator.pushNamed(context, "/profileScreen"),
-                  child: Container(
-                    margin: const EdgeInsets.all(9.0),
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                      shape: BoxShape.circle
-                    ),
-                    child: Hero(
-                      tag: "profile-avatar",
+                  child: Hero(
+                    tag: "profile-avatar",
+                    child: Container(
+                      margin: const EdgeInsets.all(9.0),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle
+                      ),
                       child: CircleAvatar(
                         radius: 20.0,
-                        backgroundImage: CachedNetworkImageProvider(user.avatar),),
-                    )
+                        backgroundImage: CachedNetworkImageProvider(user.avatar),)
+                    ),
                   ),
                 ),
               ],

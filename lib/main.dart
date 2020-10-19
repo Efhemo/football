@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:football/config/config.dart';
 import 'package:football/config/theme.dart';
 import 'screens/screen.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 void main() {
+//  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+//      systemNavigationBarColor: Colors.blue,
+//      statusBarColor: Colors.white
+//  ));
   runApp(MyApp());
 }
 
