@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:football/config/config.dart';
 import 'package:football/config/theme.dart';
 import 'screens/screen.dart';
@@ -30,12 +29,13 @@ class MyApp extends StatelessWidget {
             appBarTheme: Styles.appBarTheme,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
+          home: OnBoardingScreen(),
           themeMode: themeMode,
-          initialRoute: '/',
-          routes: {
-            '/': (context) => HomeScreen(),
-            '/profileScreen' : (context) => ProfileScreen()
-          },
+//          initialRoute: '/',
+//          routes: {
+//            '/': (context) => HomeScreen(),
+//            '/profileScreen' : (context) => ProfileScreen()
+//          },
         );
       },
     );
