@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:football/model/onboarding.dart';
+import 'package:football/utils/storage_util.dart';
 import 'package:lottie/lottie.dart';
 
 class OnBoardingScreen extends StatelessWidget {
@@ -74,7 +75,7 @@ class OnBoardingScreen extends StatelessWidget {
                             if(index != 2){
                               _pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
                             }else {
-                              print("index is $index");
+                              navigateToHome(context);
                             }
                           },
                           child: Text(index == 2 ? "Get started" : "Next",
@@ -87,6 +88,11 @@ class OnBoardingScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void navigateToHome(BuildContext context) async {
+    await StorageUtil.setBool(StorageUtil.HAS_BOARDED, true);
+    Navigator.of(context).pushReplacementNamed("/home");
   }
 }
 

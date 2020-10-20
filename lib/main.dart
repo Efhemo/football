@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:football/config/config.dart';
 import 'package:football/config/theme.dart';
+import 'package:football/utils/storage_util.dart';
 import 'screens/screen.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 
-void main() {
+void main() async {
 //  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
 //      systemNavigationBarColor: Colors.blue,
 //      statusBarColor: Colors.white
 //  ));
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Set default home.
+  Widget _defaultHome = new OnBoardingScreen();
+  final hasBeenBoarded = await StorageUtil.getBoolean(StorageUtil.HAS_BOARDED);
+  if(hasBeenBoarded){_defaultHome = HomeScreen();}
+
+  runApp(MyApp(launcher: _defaultHome));
 }
 
 class MyApp extends StatelessWidget {
+  final Widget launcher;
+
+  const MyApp({Key key, this.launcher}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ThemeModeHandler(
@@ -29,13 +41,13 @@ class MyApp extends StatelessWidget {
             appBarTheme: Styles.appBarTheme,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: OnBoardingScreen(),
+          home: launcher,
           themeMode: themeMode,
 //          initialRoute: '/',
-//          routes: {
-//            '/': (context) => HomeScreen(),
-//            '/profileScreen' : (context) => ProfileScreen()
-//          },
+          routes: {
+            '/home': (context) => HomeScreen(),
+            '/profileScreen' : (context) => ProfileScreen()
+          },
         );
       },
     );
