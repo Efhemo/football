@@ -33,11 +33,12 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'Football',
           darkTheme: ThemeData.dark().copyWith(
-            scaffoldBackgroundColor: Colors.black,
+            scaffoldBackgroundColor: Palette.backgroundColorDark,
             appBarTheme: Styles.appBarTheme,
           ),
           theme: ThemeData.light().copyWith(
             primaryColor: Colors.blue,
+            scaffoldBackgroundColor: Palette.backgroundColor,
             appBarTheme: Styles.appBarTheme,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
