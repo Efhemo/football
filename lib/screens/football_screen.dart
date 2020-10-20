@@ -4,7 +4,7 @@ import 'package:football/data/data.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 import 'package:football/config/config.dart';
 
-class HomeScreen extends StatelessWidget {
+class FootballScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeMode = ThemeModeHandler.of(context).themeMode;
