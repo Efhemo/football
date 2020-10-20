@@ -2,9 +2,9 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:football/data/data.dart';
+import 'package:football/widgets/sliver_custom_appbar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
-import 'package:football/config/config.dart';
 
 class ProfileScreen extends StatelessWidget {
   final _user = user;
@@ -16,45 +16,25 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverAppBar(
-            backgroundColor:  Theme.of(context).scaffoldBackgroundColor,
-            pinned: true,
-            floating: true,
-            iconTheme: IconThemeData(),
-            brightness: Palette.appBarTitleBrightness(themeMode),
-            expandedHeight: 100.0,
-            flexibleSpace: FlexibleSpaceBar(
-              titlePadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-              centerTitle: false,
-              title: Text("Profile", style: TextStyle(
-                  fontSize: 25.0,
-                  letterSpacing: -1,
-                  color: Palette.appBarTitleColor(themeMode),
-                  fontWeight: FontWeight.bold)),
-            ),
-            centerTitle: false,
-            actions: <Widget>[
-              IconButton(icon: Icon(Icons.track_changes), onPressed: () {})
-            ],
-          ),
+          SliverCustomAppBar(
+              title: "Profile",
+              trailing: IconButton(
+                  icon: Icon(Icons.track_changes), onPressed: () {})),
           SliverToBoxAdapter(
             child: Column(
               children: <Widget>[
                 SizedBox(height: 50.0),
-                Hero(
-                  tag: "profile-avatar",
-                  child: Container(
-                    height: 120.0,
-                    width: 120.0,
-                    padding: EdgeInsets.all(20.0),
-                    decoration: BoxDecoration(
-                        color: themeMode == ThemeMode.dark
-                            ? Colors.white
-                            : Colors.black45,
-                        shape: BoxShape.circle),
-                    child: CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(_user.avatar),
-                    ),
+                Container(
+                  height: 120.0,
+                  width: 120.0,
+                  padding: EdgeInsets.all(20.0),
+                  decoration: BoxDecoration(
+                      color: themeMode == ThemeMode.dark
+                          ? Colors.white
+                          : Colors.black45,
+                      shape: BoxShape.circle),
+                  child: CircleAvatar(
+                    backgroundImage: CachedNetworkImageProvider(_user.avatar),
                   ),
                 ),
                 SizedBox(height: 14.0),
@@ -63,7 +43,8 @@ class ProfileScreen extends StatelessWidget {
                         .copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(height: 4.0),
                 Text(_user.name,
-                    style: textTheme.subtitle2.copyWith(fontWeight: FontWeight.w400))
+                    style: textTheme.subtitle2
+                        .copyWith(fontWeight: FontWeight.w400))
               ],
             ),
           ),
@@ -107,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
   }
 
   bool _isDarkMode(BuildContext context) {
-    var theme =  ThemeModeHandler.of(context).themeMode;
+    var theme = ThemeModeHandler.of(context).themeMode;
     if (theme == ThemeMode.dark) {
       return true;
     } else {
