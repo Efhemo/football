@@ -22,13 +22,17 @@ class ProfileScreen extends StatelessWidget {
             floating: true,
             iconTheme: IconThemeData(),
             brightness: Palette.appBarTitleBrightness(themeMode),
-            title: Text("Profile",
-                style: TextStyle(
-                    color: Palette.appBarTitleColor(themeMode),
-                    fontWeight: FontWeight.bold)),
+            expandedHeight: 100.0,
+            flexibleSpace: FlexibleSpaceBar(
+              titlePadding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              centerTitle: false,
+              title: Text("Profile", style: TextStyle(
+                  fontSize: 25.0,
+                  letterSpacing: -1,
+                  color: Palette.appBarTitleColor(themeMode),
+                  fontWeight: FontWeight.bold)),
+            ),
             centerTitle: false,
-            leading:
-                IconButton(icon: Icon(Icons.arrow_back_ios), onPressed: () {Navigator.pop(context);}),
             actions: <Widget>[
               IconButton(icon: Icon(Icons.track_changes), onPressed: () {})
             ],

@@ -15,7 +15,7 @@ void main() async {
   // Set default home.
   Widget _defaultHome = new OnBoardingScreen();
   final hasBeenBoarded = await StorageUtil.getBoolean(StorageUtil.HAS_BOARDED);
-  if(hasBeenBoarded){_defaultHome = FootballScreen();}
+  if(hasBeenBoarded){_defaultHome = HomeScreen();}
 
   runApp(MyApp(launcher: _defaultHome));
 }
@@ -45,8 +45,7 @@ class MyApp extends StatelessWidget {
           home: launcher,
           themeMode: themeMode,
           routes: {
-            '/home': (context) => FootballScreen(),
-            '/profileScreen' : (context) => ProfileScreen()
+            '/home': (context) => HomeScreen(),
           },
         );
       },
