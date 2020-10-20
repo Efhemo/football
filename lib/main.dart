@@ -43,7 +43,6 @@ class MyApp extends StatelessWidget {
           ),
           home: launcher,
           themeMode: themeMode,
-//          initialRoute: '/',
           routes: {
             '/home': (context) => HomeScreen(),
             '/profileScreen' : (context) => ProfileScreen()
