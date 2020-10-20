@@ -35,11 +35,13 @@ class MyApp extends StatelessWidget {
           darkTheme: ThemeData.dark().copyWith(
             scaffoldBackgroundColor: Palette.backgroundColorDark,
             appBarTheme: Styles.appBarTheme,
+            accentColor: Colors.blueAccent
           ),
           theme: ThemeData.light().copyWith(
             primaryColor: Colors.blue,
             scaffoldBackgroundColor: Palette.backgroundColor,
             appBarTheme: Styles.appBarTheme,
+            accentColor: Colors.blueAccent,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           home: launcher,
