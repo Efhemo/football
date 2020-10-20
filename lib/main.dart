@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
           themeMode: themeMode,
           routes: {
             '/home': (context) => HomeScreen(),
+            '/search': (context) => SearchScreen(),
           },
         );
       },
