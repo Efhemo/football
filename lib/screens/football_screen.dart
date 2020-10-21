@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:football/config/config.dart';
 import 'package:football/data/data.dart';
 import 'package:football/screens/search_screen.dart';
+import 'package:football/widgets/team_item.dart';
 import 'package:football/widgets/widget.dart';
 
 class FootballScreen extends StatelessWidget {
@@ -18,8 +20,8 @@ class FootballScreen extends StatelessWidget {
                 onTap: () {},
                 child: Container(
                     margin: const EdgeInsets.all(9.0),
-                    padding: EdgeInsets.only(right: 10),
-                    decoration: BoxDecoration(shape: BoxShape.circle),
+                    padding: const EdgeInsets.only(right: 10),
+                    decoration: const BoxDecoration(shape: BoxShape.circle),
                     child: CircleAvatar(
                       radius: 20.0,
                       backgroundImage: CachedNetworkImageProvider(user.avatar),
@@ -28,12 +30,53 @@ class FootballScreen extends StatelessWidget {
             ),
             SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 child: CustomSearchBar(
                   onTapSearch: () => Navigator.of(context).push(_createRoute()),
                 ),
               ),
-            )
+            ),
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                child: const ListHeader(
+                    headerTitle: "Football league", trailingTitle: "See All"),
+              ),
+            ),
+            SliverList(
+                delegate: SliverChildListDelegate(leagues
+                    .asMap()
+                    .map((i, league) => MapEntry(
+                        i,
+                        TeamItem(
+                          title: league.name,
+                          imageUrl: league.emblemUrl,
+                          id: league.id,
+                          subtitle: league.area,
+                          trailing: league.currentMatchday.toString(),
+                          onTap: (id) {print("id is $id");}
+                        ))).values.toList())),
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                child: const ListHeader(
+                    headerTitle: "Top Teams", trailingTitle: "See All"),
+              ),
+            ),
+            SliverList(
+                delegate: SliverChildListDelegate(topTeams
+                    .asMap()
+                    .map((i, team) => MapEntry(
+                    i,
+                    TeamItem(
+                        title: team.name,
+                        imageUrl: team.emblemUrl,
+                        id: team.id,
+                        subtitle: team.leauge,
+                        trailing: null,
+                        onTap: (id) {print("id is $id");}
+                    ))).values.toList()))
           ],
         ),
       ),
@@ -48,7 +91,8 @@ class FootballScreen extends StatelessWidget {
         var begin = Offset(0.0, 0.1);
         var end = Offset.zero;
         var curve = Curves.ease;
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
         return SlideTransition(position: animation.drive(tween), child: child);
       },
     );
