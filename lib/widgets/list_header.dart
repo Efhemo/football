@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class ListHeader extends StatelessWidget {
   final String headerTitle;
   final String trailingTitle;
+  final Function onTrailingTap;
 
-  const ListHeader({Key key, this.headerTitle, this.trailingTitle}) : super(key: key);
+  const ListHeader({Key key, @required this.headerTitle, this.onTrailingTap, this.trailingTitle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +15,12 @@ class ListHeader extends StatelessWidget {
         Text(headerTitle,
             style: TextStyle(
                 fontWeight: FontWeight.w900, fontSize: 16.0)),
-        InkWell(
-          onTap: () {},
+        trailingTitle != null ? InkWell(
+          onTap: onTrailingTap,
           child: Text(trailingTitle.toUpperCase(),
               style: TextStyle(
                   fontWeight: FontWeight.w500, color: Colors.grey)),
-        )
+        ): SizedBox.shrink()
       ],
     );
   }

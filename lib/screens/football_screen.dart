@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:football/config/config.dart';
 import 'package:football/data/data.dart';
 import 'package:football/screens/search_screen.dart';
+import 'package:football/utils/custom_route.dart';
 import 'package:football/widgets/team_item.dart';
 import 'package:football/widgets/widget.dart';
 
@@ -14,8 +14,8 @@ class FootballScreen extends StatelessWidget {
       body: Center(
         child: CustomScrollView(
           slivers: <Widget>[
-            SliverCustomAppBar(
-              title: "Football",
+            SliverCustomAppBar (
+              flexibleTitle: "Football",
               trailing: InkWell(
                 onTap: () {},
                 child: Container(
@@ -33,7 +33,7 @@ class FootballScreen extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 child: CustomSearchBar(
-                  onTapSearch: () => Navigator.of(context).push(_createRoute()),
+                  onTapSearch: () => Navigator.of(context).push(Util.slideUpRoute(SearchScreen())),
                 ),
               ),
             ),
@@ -55,7 +55,7 @@ class FootballScreen extends StatelessWidget {
                           id: league.id,
                           subtitle: league.area,
                           trailing: league.currentMatchday.toString(),
-                          onTap: (id) {print("id is $id");}
+                          onTap: () {Navigator.pushNamed(context, "/footballDetails", arguments: league);}
                         ))).values.toList())),
             const SliverToBoxAdapter(
               child: Padding(
@@ -74,8 +74,8 @@ class FootballScreen extends StatelessWidget {
                         imageUrl: team.emblemUrl,
                         id: team.id,
                         subtitle: team.leauge,
-                        trailing: null,
-                        onTap: (id) {print("id is $id");}
+                        trailing: team.position.toString(),
+                        onTap: () {print("id is ${team.name}");}
                     ))).values.toList()))
           ],
         ),
@@ -83,18 +83,5 @@ class FootballScreen extends StatelessWidget {
     );
   }
 
-  Route _createRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => SearchScreen(),
-      transitionDuration: Duration(milliseconds: 200),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = Offset(0.0, 0.1);
-        var end = Offset.zero;
-        var curve = Curves.ease;
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        return SlideTransition(position: animation.drive(tween), child: child);
-      },
-    );
-  }
+
 }

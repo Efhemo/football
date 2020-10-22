@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
       manager: AppTheme(),
       builder: (ThemeMode themeMode) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Football',
           darkTheme: ThemeData.dark().copyWith(
             scaffoldBackgroundColor: Palette.backgroundColorDark,
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/home': (context) => HomeScreen(),
             '/search': (context) => SearchScreen(),
+            '/footballDetails': (context) => FootballDetailsScreen(),
           },
         );
       },

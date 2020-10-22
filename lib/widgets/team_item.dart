@@ -10,7 +10,7 @@ class TeamItem extends StatelessWidget {
   final String subtitle;
   final int id;
   final String trailing;
-  final Function(int id) onTap;
+  final Function() onTap;
 
   const TeamItem({Key key, @required this.title, @required this.imageUrl, this.subtitle, @required this.id, this.trailing, this.onTap}) : super(key: key);
 
@@ -18,7 +18,7 @@ class TeamItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeMode = ThemeModeHandler.of(context).themeMode;
     return InkWell(
-      onTap: (){},
+      onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: ListTile(
@@ -26,14 +26,14 @@ class TeamItem extends StatelessWidget {
           leading: RoundImage(imageUrl: imageUrl),
           title: Text(title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 15.0)),
           subtitle: Text(subtitle, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),
-          trailing: trailing != null ? Container(
+          trailing: Container(
             padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 6.0),
             decoration: BoxDecoration(
                 color: Palette.faintBlue(themeMode),
                 borderRadius: BorderRadius.circular(5.0)
             ),
             child:  Text(trailing, style: TextStyle(fontWeight: FontWeight.bold)),
-          ): SizedBox.shrink()
+          )
         )
       ),
     );

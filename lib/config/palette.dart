@@ -4,6 +4,7 @@ class Palette {
 
   static Color backgroundColor = Color(0xFFF8F8F8);
   static Color backgroundColorDark = Color(0xFF1D1B1C);
+  static Color darkGrey = Color(0xFF202020);
   static Color faintBlue(ThemeMode themeMode){
     return themeMode == ThemeMode.dark ? Colors.grey : Color(0xFFEAEDF3);
   }

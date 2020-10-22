@@ -17,7 +17,7 @@ class ProfileScreen extends StatelessWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverCustomAppBar(
-              title: "Profile",
+              flexibleTitle: "Profile",
               trailing: IconButton(
                   icon: Icon(Icons.track_changes), onPressed: () {})),
           SliverToBoxAdapter(
