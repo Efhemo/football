@@ -22,7 +22,7 @@ class TeamItem extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: ListTile(
-          contentPadding: EdgeInsets.only(left: 0, top: 3, bottom: 3, right: 23.0),
+          contentPadding: EdgeInsets.only(left: 10, top: 3, bottom: 3, right: 23.0),
           leading: RoundImage(imageUrl: imageUrl),
           title: Text(title, style: TextStyle(fontWeight: FontWeight.w900, fontSize: 15.0)),
           subtitle: Text(subtitle, style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold)),

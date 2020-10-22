@@ -7,7 +7,7 @@ final User  user = User(name: "Femi", nickName: "Efhem", avatar: "https://images
 final leagues = [
   League(id: 2001, area: "Europe", name: "UEFA Champions League", emblemUrl: "https://upload.wikimedia.org/wikipedia/en/b/bf/UEFA_Champions_League_logo_2.svg", currentMatchday: 1),
   League(id: 2021, area: "England", name: "Premier League", emblemUrl: "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg", currentMatchday: 5),
-  League(id: 2019, area: "Italy", name: "Serie A", emblemUrl: "https://crests.football-data.org/SA.svg", currentMatchday: 4),
+  //League(id: 2019, area: "Italy", name: "Serie A", emblemUrl: "https://crests.football-data.org/SA.svg", currentMatchday: 4),
   League(id: 2014, area: "Spain", name: "La Liga", emblemUrl: "https://upload.wikimedia.org/wikipedia/en/9/9a/Flag_of_Spain.svg", currentMatchday: 7),
   League(id: 2015, area: "France", name: "Ligue 1", emblemUrl: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg", currentMatchday: 8),
   League(id: 2002, area: "Germany", name: "Bundesliga", emblemUrl: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg", currentMatchday: 5),
