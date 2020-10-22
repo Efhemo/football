@@ -4,8 +4,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:football/config/palette.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
+import 'package:football/model/match.dart';
 
 class MatchItem extends StatelessWidget {
+
+  final Match match;
+
+  const MatchItem({Key key, this.match}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final themeMode = ThemeModeHandler.of(context).themeMode;
@@ -26,66 +32,7 @@ class MatchItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Expanded(
-            child: Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Expanded(
-                        child: Row(
-                          children: <Widget>[
-                            SvgPicture.network("https://crests.football-data.org/61.svg", width: 16.0, height: 16.0),
-                            SizedBox(width: 8.0),
-                            Text("Chelsea", style: TextStyle( fontSize: 14.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: 50.0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Text("3", style: TextStyle( fontSize: 14.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
-                            Icon(MdiIcons.menuLeft)
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 8.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Expanded(
-                        child: Row(
-                          children: <Widget>[
-                            SvgPicture.network("https://crests.football-data.org/65.svg", width: 16.0, height: 16.0),
-                            SizedBox(width: 8.0),
-                            Text("Manchester city", style: TextStyle( fontSize: 14.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
-                          ],
-                        ),
-                      ),
-                      Container(
-                        width: 50.0,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(right: 24),
-                              child: Text("2", style: TextStyle( fontSize: 14.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
+          _matchScore(match),
 //          Expanded(child: SizedBox()),
           Container(
             margin: EdgeInsets.only(right: 12.0),
@@ -104,6 +51,82 @@ class MatchItem extends StatelessWidget {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  Widget _matchScore(Match match) {
+    var putPointerHome = false;
+    var putPointerAway = false;
+
+    if(match.homeScore != null && match.awayScore != null){
+
+      if (match.homeScore > match.awayScore) {
+        putPointerHome = true;
+        putPointerAway = false;
+      }
+      if (match.homeScore < match.awayScore) {
+        putPointerHome = false;
+        putPointerAway = true;
+      }
+    }
+
+    return Expanded(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                  child: Row(
+                    children: <Widget>[
+                      SvgPicture.network(match.homeImageUrl, width: 16.0, height: 16.0),
+                      SizedBox(width: 8.0),
+                      Text(match.homeTeam, style: TextStyle( fontSize: 14.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 40.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      match.homeScore != null ? Text(match.homeScore.toString(), style: TextStyle( fontSize: 14.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis) : SizedBox.shrink(),
+                      putPointerHome ? Icon(MdiIcons.menuLeft) : SizedBox.shrink()
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 8.0),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                  child: Row(
+                    children: <Widget>[
+                      SvgPicture.network(match.awayImageUrl, width: 16.0, height: 16.0),
+                      SizedBox(width: 8.0),
+                      Text(match.awayTeam, style: TextStyle( fontSize: 14.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 40.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      match.awayScore != null ? Text(match.awayScore.toString(), style: TextStyle( fontSize: 14.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis) : SizedBox.shrink(),
+                      putPointerAway ? Icon(MdiIcons.menuLeft) : SizedBox.shrink()
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

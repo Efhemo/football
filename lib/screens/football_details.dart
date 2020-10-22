@@ -65,10 +65,10 @@ class FootballDetailsScreen extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(vertical: 17.0, horizontal: 10.0),
                   scrollDirection: Axis.horizontal,
-                  itemCount: 5,
+                  itemCount: liveMatch.length,
                   itemBuilder: (context, index) => Padding(
                       padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: LiveMatchItem())),
+                      child: LiveMatchItem(match: liveMatch[index]))),
             ),
           ),
           SliverToBoxAdapter(
@@ -85,8 +85,8 @@ class FootballDetailsScreen extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
               (context, index) => Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
-                  child: MatchItem()),
-            childCount: 6,
+                  child: MatchItem(match: scheduledMatch[index])),
+            childCount: scheduledMatch.length,
           ))
         ],
       ),

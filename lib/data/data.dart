@@ -1,4 +1,5 @@
 import 'package:football/model/league.dart';
+import 'package:football/model/match.dart';
 import 'package:football/model/team.dart';
 import 'package:football/model/user.dart';
 
@@ -20,4 +21,33 @@ final topTeams = [
   Team(id: 259, leauge: "England", name: "Man City", emblemUrl: "https://crests.football-data.org/65.svg", position: 2),
   Team(id: 259, leauge: "France", name: "Paris Saint-Germain", emblemUrl: "https://crests.football-data.org/524.svg", position: 1),
   Team(id: 200, leauge: "La Liga", name: "Real Madrid", emblemUrl: "https://crests.football-data.org/86.svg", position: 1),
+];
+
+final liveMatch = [
+  Match(id: 1, homeImageUrl: "https://crests.football-data.org/61.svg",
+      awayImageUrl: "https://crests.football-data.org/65.svg",
+      currentMinute: "15", isLive: true,
+      league: "UEFA Champions League", homeTeam: "Chelsea", awayTeam: "Man City", homeScore: 2, awayScore: 3, playTime: "13:30", playDate: "18 JAN" ),
+  Match(id: 2, homeImageUrl: "https://crests.football-data.org/524.svg",
+      awayImageUrl: "https://crests.football-data.org/86.svg",
+      currentMinute: "78", isLive: true,
+      league: "UEFA Champions League", homeTeam: "Paris Saint-Germain",
+      awayTeam: "Real Madrid", homeScore: 2, awayScore: 3, playTime: "13:30", playDate: "18 JAN" ),
+  Match(id: 3, homeImageUrl: "https://crests.football-data.org/524.svg",
+      awayImageUrl: "https://crests.football-data.org/86.svg",
+      currentMinute: "110", isLive: true,
+      league: "UEFA Champions League", homeTeam: "Paris Saint-Germain",
+      awayTeam: "Real Madrid", homeScore: 2, awayScore: 3, playTime: "13:30", playDate: "18 JAN" ),
+];
+
+final scheduledMatch = [
+  Match(id: 1, homeImageUrl: "https://crests.football-data.org/61.svg",
+      awayImageUrl: "https://crests.football-data.org/524.svg",
+      currentMinute: null, isLive: false,
+      league: "UEFA Champions League", homeTeam: "Chelsea", awayTeam: "Paris Saint-Germain", homeScore: 5, awayScore: 5, playTime: "20:30", playDate: "20 JAN" ),
+  Match(id: 2, homeImageUrl: "https://crests.football-data.org/65.svg",
+      awayImageUrl: "https://crests.football-data.org/86.svg",
+      currentMinute: null, isLive: false,
+      league: "UEFA Champions League", homeTeam: "Man City",
+      awayTeam: "Real Madrid", homeScore: null, awayScore: null, playTime: "13:30", playDate: "18 JAN" )
 ];
