@@ -1,5 +1,7 @@
 import 'package:football/model/league.dart';
 import 'package:football/model/match.dart';
+import 'package:football/model/news.dart';
+import 'package:football/model/table_item.dart';
 import 'package:football/model/team.dart';
 import 'package:football/model/user.dart';
 
@@ -50,4 +52,27 @@ final scheduledMatch = [
       currentMinute: null, isLive: false,
       league: "UEFA Champions League", homeTeam: "Man City",
       awayTeam: "Real Madrid", homeScore: null, awayScore: null, playTime: "13:30", playDate: "18 JAN" )
+];
+
+final table = [
+  TableItem(id: 1, avatar: "https:// crests.football-data.org/61.svg", name: "Chelsea", point: 97, gamePlayed: 36, goalDifference: 78),
+  TableItem(id: 2, avatar: "https://crests.football-data.org/86.svg", name: "Real Madrid", point: 97, gamePlayed: 36, goalDifference: 78),
+  TableItem(id: 3, avatar: "https://crests.football-data.org/65.svg", name: "Manchester city", point: 90, gamePlayed: 36, goalDifference: 70),
+  TableItem(id: 4, avatar: "https://crests.football-data.org/61.svg", name: "Chelsea", point: 97, gamePlayed: 36, goalDifference: 78)
+];
+
+final newsList = [
+
+  News(1, "Cointelegraph By Guest Authors", "The evolution of crypto exchanges — What’s next for the industry",
+      "Cryptocurrency exchanges have now become significant for global businesses, and digital asset trading hubs are carrying on substantial business activities on a daily basis",
+      "https://cointelegraph.com/news/the-evolution-of-crypto-exchanges-what-s-next-for-the-industry",
+      "https://s3.cointelegraph.com/uploads/2020-10/4eb37e5b-d6fe-49f9-bafd-4d06a58cc980.jpg", "2 hours ago"),
+  News(2, "The Investor", "Weekend reading: Triage",
+      "New experimental vaccine against Virus-related comments on Monevator, plus the week's good reads…",
+      "https://monevator.com/weekend-reading-triage/",
+      null, "9 hours ago"),
+  News(3, "Cointelegraph By Guest Authors", "The evolution of crypto exchanges — What’s next for the industry",
+      "Cryptocurrency exchanges have now become significant for global businesses, and digital asset trading hubs are carrying on substantial business activities on a daily basis",
+      "https://cointelegraph.com/news/the-evolution-of-crypto-exchanges-what-s-next-for-the-industry",
+      "https://s3.cointelegraph.com/uploads/2020-10/4eb37e5b-d6fe-49f9-bafd-4d06a58cc980.jpg", "2 hours ago"),
 ];

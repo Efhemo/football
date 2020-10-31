@@ -10,8 +10,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final _destinations = [
     FootballScreen(),
-    Scaffold(),
-    Scaffold(),
+    NewsScreen(),
+    BookmarkScreen(),
     ProfileScreen()
   ];
 

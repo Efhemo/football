@@ -18,7 +18,6 @@ class CustomSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeMode = ThemeModeHandler.of(context).themeMode;
     return Row(
       children: <Widget>[
         Expanded(
@@ -26,7 +25,7 @@ class CustomSearchBar extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0),
             child: Container(
               height: 35.0,
-              color: Palette.searchBarColor(themeMode),
+              color: Theme.of(context).hoverColor,
               child: Row(
                 children: <Widget>[
                   SizedBox(width: 10.0),

@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:football/data/data.dart';
-import 'package:football/screens/search_screen.dart';
+import 'package:football/screens/home/search_screen.dart';
 import 'package:football/utils/custom_route.dart';
 import 'package:football/widgets/team_item.dart';
 import 'package:football/widgets/widget.dart';

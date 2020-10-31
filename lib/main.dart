@@ -36,13 +36,19 @@ class MyApp extends StatelessWidget {
           darkTheme: ThemeData.dark().copyWith(
             scaffoldBackgroundColor: Palette.backgroundColorDark,
             appBarTheme: Styles.appBarTheme,
-            accentColor: Colors.blueAccent
+            accentColor: Colors.blueAccent,
+            cardColor: Palette.darkGrey,
+            hoverColor: Palette.darkGrey,
+            highlightColor: Colors.white54,
           ),
           theme: ThemeData.light().copyWith(
             primaryColor: Colors.blue,
             scaffoldBackgroundColor: Palette.backgroundColor,
             appBarTheme: Styles.appBarTheme,
             accentColor: Colors.blueAccent,
+            cardColor: Colors.white,
+            hoverColor: Palette.lightWhite,
+            highlightColor: Colors.black45,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
           home: launcher,
@@ -51,6 +57,7 @@ class MyApp extends StatelessWidget {
             '/home': (context) => HomeScreen(),
             '/search': (context) => SearchScreen(),
             '/footballDetails': (context) => FootballDetailsScreen(),
+            '/table': (context) => TableScreen(),
           },
         );
       },

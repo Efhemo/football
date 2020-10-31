@@ -1,6 +1,9 @@
-export 'football_screen.dart';
+export 'home/football_screen.dart';
 export 'profile_screen.dart';
 export 'onboarding.dart';
 export 'home_screen.dart';
-export 'search_screen.dart';
-export 'football_details.dart';
+export 'home/search_screen.dart';
+export 'home/football_details.dart';
+export 'home/league_table_screen.dart';
+export 'news_screen.dart';
+export 'bookmark_screen.dart';

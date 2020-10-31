@@ -4,7 +4,7 @@ import 'package:football/model/league.dart';
 import 'package:football/model/team.dart';
 import 'package:football/utils/custom_route.dart';
 import 'package:football/widgets/widget.dart';
-import 'screen.dart';
+import '../screen.dart';
 
 class FootballDetailsScreen extends StatelessWidget {
   @override
@@ -76,16 +76,18 @@ class FootballDetailsScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 18, horizontal: 20),
               child: ListHeader(
                 headerTitle: "All games",
-                onTrailingTap: () {},
+                onTrailingTap: () {
+                  Navigator.of(context).pushNamed("/table", arguments: league);
+                },
                 trailingTitle: "See Table",
               ),
             ),
           ),
           SliverList(
               delegate: SliverChildBuilderDelegate(
-              (context, index) => Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
-                  child: MatchItem(match: scheduledMatch[index])),
+            (context, index) => Padding(
+                padding: EdgeInsets.symmetric(horizontal: 18.0, vertical: 12.0),
+                child: MatchItem(match: scheduledMatch[index])),
             childCount: scheduledMatch.length,
           ))
         ],

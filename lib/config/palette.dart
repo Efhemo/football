@@ -8,10 +8,7 @@ class Palette {
   static Color faintBlue(ThemeMode themeMode){
     return themeMode == ThemeMode.dark ? Colors.grey : Color(0xFFEAEDF3);
   }
-
-  static Color searchBarColor(ThemeMode themeMode){
-    return themeMode == ThemeMode.dark ? Color(0xFF202020) : Color(0xFFEAEAEB);
-  }
+  static Color lightWhite = Color(0xFFEAEAEB);
 
   static Color appBarTitleColor(ThemeMode themeMode){
     return themeMode == ThemeMode.dark ? Colors.white : Colors.black;
