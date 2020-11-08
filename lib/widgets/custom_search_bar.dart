@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:football/config/config.dart';
-import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 class CustomSearchBar extends StatelessWidget {
   final Function onTapSearch;

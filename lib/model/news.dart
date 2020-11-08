@@ -1,3 +1,4 @@
+import 'package:football/domain/model/articles_local.dart';
 
 class News {
   final int id;
@@ -9,4 +10,10 @@ class News {
   final String publishAt;
 
   News(this.id, this.author, this.title, this.description, this.url, this.urlToImage, this.publishAt);
+
+  static News fromArticle(int key, ArticleLocal article){
+    return News(key, article.author, article.title,
+        article.description, article.url, article.urlToImage,
+        article.publishedAt);
+  }
 }

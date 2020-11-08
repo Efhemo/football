@@ -4,8 +4,10 @@ import 'package:flutter/painting.dart';
 import 'package:football/data/data.dart';
 import 'package:football/screens/home/search_screen.dart';
 import 'package:football/utils/custom_route.dart';
+import 'package:football/viewmodel/provider.dart';
 import 'package:football/widgets/team_item.dart';
 import 'package:football/widgets/widget.dart';
+import 'package:provider/provider.dart';
 
 class FootballScreen extends StatelessWidget {
   @override
@@ -17,7 +19,9 @@ class FootballScreen extends StatelessWidget {
             SliverCustomAppBar (
               flexibleTitle: "Football",
               trailing: InkWell(
-                onTap: () {},
+                onTap: () async {
+                  Provider.of<NewsProvider>(context, listen: false).fetchNews();
+                },
                 child: Container(
                     margin: const EdgeInsets.all(9.0),
                     padding: const EdgeInsets.only(right: 10),

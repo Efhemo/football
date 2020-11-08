@@ -1,8 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:football/config/palette.dart';
 import 'package:football/model/news.dart';
-import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 class NewsItem extends StatelessWidget {
   final News news;
@@ -53,7 +51,7 @@ class NewsItem extends StatelessWidget {
                     right: 16.0,
                     child: Column(
                       children: <Widget>[
-                        Text(news.author,
+                        Text(news.author ?? "",
                             style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -74,13 +72,13 @@ class NewsItem extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-              child: Text(
-                news.description,
+              child: news.description != null ? Text(
+                news.description ?? "",
                 style: TextStyle(
                     color: Theme.of(context).highlightColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14.0),
-              ),
+              ) : SizedBox.shrink(),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
