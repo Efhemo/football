@@ -11,26 +11,22 @@ class NewsRepositoryImp with NewsRepository {
   NewsRepositoryImp(this.newsLocalDataSourceImpl, this.newsRemoteRepository);
 
   @override
-  Future<ResultWrapper<List<int>>> fetchNews() async {
+  Future<Either<Failure, List<int>>> fetchNews() async {
 
-    Completer<ResultWrapper<List<int>>> saveResult;
-    final result = await newsRemoteRepository.sport("08e9d72144734304b9199e9536f4718a");
-    result.when(success: (data) async {
-      final result = data.articles;
-      if( result != null){
+    Either<Failure, List<int>> saveResult;
+    final apiResult =  await newsRemoteRepository.sport("08e9d72144734304b9199e9536f4718a");
+    
+    if(apiResult.isRight()){
+      final result = apiResult.getOrElse(() => null);
+      if( result.articles != null){
         await newsLocalDataSourceImpl.deleteAll();
-        final listOfKeys = await newsLocalDataSourceImpl.saveArticles(result.map((e) => ArticleLocal.fromArticle(e)).toList());
-        saveResult.complete(ResultWrapper.success(data: listOfKeys));
-      }else {
-        saveResult.completeError(ResultWrapper.networkError(message: "Empty news"));
-      }
-    }, error: (error) {
-      saveResult.completeError(ResultWrapper.error(error: error));
-    }, networkError: (message) {
-      saveResult.completeError(ResultWrapper.networkError(message: message));
-    });
+        final listOfKeys = await newsLocalDataSourceImpl.saveArticles(result.articles.map((e) => ArticleLocal.fromArticle(e)).toList());
+        saveResult = Right(listOfKeys);
+      }else saveResult = left(Failure(message: "Empty news"));
+    } else saveResult =  apiResult.flatMap((a) => null);
 
-    return saveResult.future;
+    return saveResult;
+
   }
   
   

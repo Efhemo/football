@@ -10,7 +10,7 @@ class NewsRemoteDataSourceImpl with NewsRemoteDataSource {
   NewsRemoteDataSourceImpl({@required this.apiService});
 
   @override
-  Future<ResultWrapper<NewsResponse>> sport(String apiKey) async {
+  Future<Either<Failure, NewsResponse>> sport(String apiKey) async {
     return await safeApiResult(apiService.news(apiKey: apiKey));
   }
 

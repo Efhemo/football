@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart' hide Headers;
 import 'package:flutter/cupertino.dart';
-import 'package:football/data/helper/ErrorData.dart';
+import 'package:football/domain/model/failure.dart';
 
 class ServerError implements Exception {
   String _errorMessage = "";
@@ -40,9 +40,9 @@ class ServerError implements Exception {
     return _errorMessage;
   }
 
-  ErrorData extractErrorBody(DioError error){
+  Failure extractErrorBody(DioError error){
     try {
-      return ErrorData.fromJson(error.response.data);
+      return Failure.fromJson(error.response.data);
     } catch (e){
       return null;
     }
