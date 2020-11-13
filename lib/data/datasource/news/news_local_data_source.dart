@@ -14,8 +14,7 @@ class NewsLocalDataSourceImpl {
     return listOfKeys.toList();
   }
 
-  Stream<List<ArticleLocal>> watchArticle() =>
-      _articleBox.watch().map((event) => event.value);
+  Stream<BoxEvent> watchArticle() => _articleBox.watch();
 
 
   // Removes all entries from the box.

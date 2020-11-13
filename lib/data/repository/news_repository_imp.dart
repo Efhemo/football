@@ -37,6 +37,6 @@ class NewsRepositoryImp with NewsRepository {
   }
 
   @override
-  Stream<List<News>> watchNews() =>
-      newsLocalDataSourceImpl.watchArticle().map((event) => News.listNews(event));
+  Stream<News> watchNews() =>
+      newsLocalDataSourceImpl.watchArticle().map((event) => News.fromArticle(event.key, event.value));
 }
