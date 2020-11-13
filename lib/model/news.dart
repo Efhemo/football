@@ -16,4 +16,7 @@ class News {
         article.description, article.url, article.urlToImage,
         article.publishedAt);
   }
+
+  static List<News> listNews (List<ArticleLocal> listArticles) =>
+      listArticles.map((e) => fromArticle(1, e));
 }

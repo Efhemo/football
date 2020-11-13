@@ -15,8 +15,8 @@ class NewsProvider extends BaseViewModel<News> {
     setViewState(ViewState.loading);
     final result = await newsRepository.fetchNews();
     result.fold(
-            (l) => print("error is ${l.message}"),
-            (r) => print("The first authour is ${r.length}")
+            (l) => setError(l),
+            (r) => setError(null)
     );
     setViewState(ViewState.loaded);
   }

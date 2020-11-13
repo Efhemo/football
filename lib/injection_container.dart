@@ -1,5 +1,4 @@
-import 'package:football/data/datasource/news_local_data_source.dart';
-import 'package:football/data/datasource/news_remote_data_source.dart';
+import 'package:football/data/datasource/datasource.dart';
 import 'package:football/data/retrofit/api_service.dart';
 import 'package:football/viewmodel/provider.dart';
 import 'package:get_it/get_it.dart';
@@ -16,12 +15,15 @@ Future<void> init() async {
   //provide ApiService
   injector.registerLazySingleton(() => ApiService.create());
 
+  //provide secret keys
+  injector.registerSingleton<SecretLoader>(SecretLoader(secretPath: "secrets.json") );
+
   //NewsRemoteDataSourceImpl
   injector.registerLazySingleton<NewsRemoteDataSource>(() => NewsRemoteDataSourceImpl(apiService: injector.get()));
   //NewsRemoteDataSourceImpl
   injector.registerLazySingleton<NewsLocalDataSourceImpl>(() => NewsLocalDataSourceImpl());
   //NewsRepository
-  injector.registerLazySingleton<NewsRepository>(() => NewsRepositoryImp(injector.get(), injector.get()));
+  injector.registerLazySingleton<NewsRepository>(() => NewsRepositoryImp(injector.get(), injector.get(), injector.get()));
 
   injector.registerFactory<NewsProvider>(() => NewsProvider(newsRepository: injector.get()));
 }

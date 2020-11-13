@@ -15,8 +15,8 @@ class NewsScreen extends StatefulWidget {
   _NewsScreenState createState() => _NewsScreenState();
 }
 
-class _NewsScreenState extends State<NewsScreen> with AutomaticKeepAliveClientMixin {
-
+class _NewsScreenState extends State<NewsScreen>
+    with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
     super.initState();
@@ -26,14 +26,34 @@ class _NewsScreenState extends State<NewsScreen> with AutomaticKeepAliveClientMi
     });
   }
 
+  void showSnackBar(String message) {
+    Future.delayed(Duration(milliseconds: 500), (){
+      Scaffold.of(context).showSnackBar(SnackBar(
+        duration: Duration(days: 1),
+        content: Text(message),
+        action: SnackBarAction(
+            label: "Retry",
+            onPressed: () {
+              Scaffold.of(context).hideCurrentSnackBar();
+              Provider.of<NewsProvider>(context, listen: false).fetchNews();
+            }),
+      ));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
 
     return Scaffold(
       body: ValueListenableBuilder<Box<ArticleLocal>>(
-        valueListenable: Hive.box<ArticleLocal>(HiveSetup.Article).listenable() ,
-        builder: (BuildContext context,  box, _){
+        valueListenable: Hive.box<ArticleLocal>(HiveSetup.Article).listenable(),
+        builder: (BuildContext context, box, _) {
+          final article = box.values.toList();
+          final keys = box.keys.toList();
+          //or
+          //final key = box.keyAt(index);
+          //final article = box.getAt(index);
           return Stack(
             children: <Widget>[
               CustomScrollView(
@@ -41,21 +61,21 @@ class _NewsScreenState extends State<NewsScreen> with AutomaticKeepAliveClientMi
                   SliverCustomAppBar(flexibleTitle: "News"),
                   SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
-                        final key = box.keyAt(index);
-                        final article = box.getAt(index);
-                        return NewsItem(news: News.fromArticle(key, article));
-                      }, childCount: box.length))
+                    return NewsItem(news: News.fromArticle(keys[index], article[index]));
+                  }, childCount: keys.length))
                 ],
               ),
-              Consumer<NewsProvider>(
-                  builder: (context, newsProvider, child){
-                    return Visibility(
-                      visible: newsProvider.state == ViewState.loading,
-                      child: SpinKitSquareCircle(
-                        color: Theme.of(context).accentColor,
-                        size: 50.0,
-                      ),
-                    );
+              Consumer<NewsProvider>(builder: (context, newsProvider, child) {
+                if (newsProvider.failure != null) {
+                  showSnackBar(newsProvider.failure.message);
+                }
+                return Visibility(
+                  visible: newsProvider.state == ViewState.loading,
+                  child: SpinKitSquareCircle(
+                    color: Theme.of(context).accentColor,
+                    size: 50.0,
+                  ),
+                );
               })
             ],
           );
@@ -66,6 +86,4 @@ class _NewsScreenState extends State<NewsScreen> with AutomaticKeepAliveClientMi
 
   @override
   bool get wantKeepAlive => true;
-
-
 }

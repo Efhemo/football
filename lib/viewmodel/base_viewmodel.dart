@@ -8,8 +8,10 @@ enum ViewState { initial, loading, loaded }
 class BaseViewModel<T>  extends ChangeNotifier {
 
   ViewState _state = ViewState.initial;
-  ViewState get state => _state;
-  void setViewState(ViewState state) {
+
+  ViewState get
+  state => _state;
+  void setViewState(ViewState state, {Failure failure}) {
     _state = state;
     notifyListeners();
   }
@@ -25,14 +27,6 @@ class BaseViewModel<T>  extends ChangeNotifier {
   Failure get failure => _errorData;
   void setError(Failure errorData) {
     _errorData = errorData;
-    notifyListeners();
   }
-
-//  Either<News, Post> _post;
-//  Either<Failure, Post> get post => _post;
-//  void _setPost(Either<Failure, Post> post) {
-//    _post = post;
-//    notifyListeners();
-//  }
 
 }
