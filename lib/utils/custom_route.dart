@@ -17,4 +17,19 @@ class Util {
       },
     );
   }
+
+  static void showSnackBar(BuildContext context, String message, Function function) {
+    Future.delayed(Duration(milliseconds: 500), (){
+      Scaffold.of(context).showSnackBar(SnackBar(
+        duration: Duration(days: 1),
+        content: Text(message),
+        action: SnackBarAction(
+            label: "Retry",
+            onPressed: () {
+              Scaffold.of(context).hideCurrentSnackBar();
+              function();
+            }),
+      ));
+    });
+  }
 }

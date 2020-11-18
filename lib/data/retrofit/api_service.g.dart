@@ -9,7 +9,7 @@ part of 'api_service.dart';
 class _ApiService implements ApiService {
   _ApiService(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'http://newsapi.org/v2/';
+    baseUrl ??= 'https://api.football-data.org/v2/';
   }
 
   final Dio _dio;
@@ -27,7 +27,8 @@ class _ApiService implements ApiService {
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _data = <String, dynamic>{};
-    final _result = await _dio.request<Map<String, dynamic>>('top-headlines',
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'http://newsapi.org/v2/top-headlines',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -36,6 +37,25 @@ class _ApiService implements ApiService {
             baseUrl: baseUrl),
         data: _data);
     final value = NewsResponse.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<TableResponse> standings(leagueId) async {
+    ArgumentError.checkNotNull(leagueId, 'leagueId');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'competitions/$leagueId/standings',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = TableResponse.fromJson(_result.data);
     return value;
   }
 }

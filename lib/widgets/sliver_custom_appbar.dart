@@ -17,6 +17,7 @@ class SliverCustomAppBar extends StatelessWidget {
     final themeMode = ThemeModeHandler.of(context).themeMode;
     return SliverAppBar(
       floating: true,
+      pinned: title != null ? true : false,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       iconTheme: IconThemeData(),
       brightness: Palette.appBarTitleBrightness(themeMode),
