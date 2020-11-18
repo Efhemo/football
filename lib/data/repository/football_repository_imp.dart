@@ -2,6 +2,7 @@ import 'package:football/data/datasource/footbal/football_local_data_source.dart
 import 'package:football/domain/datasource/football_remote_datasource.dart';
 import 'package:football/domain/domain.dart';
 import 'package:football/domain/model/league_table_local.dart';
+import 'package:football/model/table_item.dart';
 import 'package:football/model/team.dart';
 
 class FootballRepositoryImp implements FootballRepository {
@@ -34,6 +35,12 @@ class FootballRepositoryImp implements FootballRepository {
   List<Team> getLeagueTeam(int leagueId) {
     return footballLocalDataSourceImpl.getLeagueTeam(leagueId).map((e) =>
         Team.fromTeamLocal(e)).toList();
+  }
+
+  @override
+  List<TableItem> getLeagueTable(int leagueId) {
+    return footballLocalDataSourceImpl.getLeagueTeam(leagueId).map((e) =>
+        TableItem.fromTeamLocal(e)).toList();
   }
   
 
