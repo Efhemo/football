@@ -12,5 +12,7 @@ class Team {
   Team({ @required this.id, @required this.leauge, @required this.name, this.code, @required this.emblemUrl, this.position});
 
   static Team fromTeamLocal(LeagueTableLocal leagueTableLocal) =>
-      Team(id: leagueTableLocal.teamId, leauge: leagueTableLocal.leagueName, name: leagueTableLocal.teamName, emblemUrl: leagueTableLocal.teamLogo);
+      Team(id: leagueTableLocal.teamId, leauge: leagueTableLocal.leagueName,
+          name: leagueTableLocal.teamName, emblemUrl: leagueTableLocal.teamLogo,
+          position: leagueTableLocal.position);
 }

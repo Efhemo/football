@@ -8,4 +8,6 @@ abstract class FootballRepository {
   List<Team> getLeagueTeam(int leagueId);
 
   List<TableItem> getLeagueTable(int leagueId);
+
+  List<Team> topTeams();
 }

@@ -68,19 +68,23 @@ class FootballScreen extends StatelessWidget {
                     headerTitle: "Top Teams", trailingTitle: "See All"),
               ),
             ),
-            SliverList(
-                delegate: SliverChildListDelegate(topTeams
-                    .asMap()
-                    .map((i, team) => MapEntry(
-                    i,
-                    TeamItem(
-                        title: team.name,
-                        imageUrl: team.emblemUrl,
-                        id: team.id,
-                        subtitle: team.leauge,
-                        trailing: team.position.toString(),
-                        onTap: () {print("id is ${team.name}");}
-                    ))).values.toList()))
+            Consumer<FootballProvider>(
+              builder: (context, provider, child){
+                return SliverList(
+                    delegate: SliverChildListDelegate(provider.fiveTopTeams()
+                        .asMap()
+                        .map((i, team) => MapEntry(
+                        i,
+                        TeamItem(
+                            title: team.name,
+                            imageUrl: team.emblemUrl,
+                            id: team.id,
+                            subtitle: team.leauge,
+                            trailing: team.position.toString(),
+                            onTap: () {print("id is ${team.name}");}
+                        ))).values.toList()));
+              },
+            )
           ],
         ),
       ),

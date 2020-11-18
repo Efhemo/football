@@ -18,4 +18,5 @@ class FootballLocalDataSourceImpl {
   List<LeagueTableLocal> getLeagueTeam(int leagueId) =>
       _leagueTableBox.values.where((element) => element.id == leagueId).toList();
 
+  List<LeagueTableLocal> topTeams() =>  _leagueTableBox.values.where((element) => element.position < 5).toList();
 }

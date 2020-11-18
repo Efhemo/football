@@ -14,10 +14,19 @@ class FootballProvider extends BaseViewModel {
   }
 
   List<TableItem> table(int leagueId){
-
     final result  = footballRepository.getLeagueTable(leagueId);
     result.sort((a, b) => a.position.compareTo(b.position));
     return result;
+  }
+
+  List<Team> topTeams(){
+    return footballRepository.topTeams();
+  }
+
+  List<Team> fiveTopTeams(){
+    final teams = topTeams();
+    teams.sort((a, b) => a.position.compareTo(b.position));
+    return teams.sublist(1, 5);
   }
 
   void fetchTable(int leagueId) async {

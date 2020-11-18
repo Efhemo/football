@@ -42,6 +42,10 @@ class FootballRepositoryImp implements FootballRepository {
     return footballLocalDataSourceImpl.getLeagueTeam(leagueId).map((e) =>
         TableItem.fromTeamLocal(e)).toList();
   }
+
+  @override
+  List<Team> topTeams() => footballLocalDataSourceImpl.topTeams().map((e) =>
+      Team.fromTeamLocal(e)).toList();
   
 
 }
