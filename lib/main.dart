@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:football/config/config.dart';
 import 'package:football/config/theme.dart';
 import 'package:football/data/hive/hive.dart';
+import 'package:football/model/league.dart';
 import 'package:football/utils/storage_util.dart';
 import 'package:football/viewmodel/provider.dart';
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:provider/provider.dart';
-import 'domain/model/articles_local.dart';
 import 'screens/screen.dart';
 import 'package:theme_mode_handler/theme_mode_handler.dart';
 import 'injection_container.dart' as di;
@@ -24,8 +24,7 @@ void main() async {
   //hive
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
-  Hive.registerAdapter(ArticleLocalAdapter(), 0);
-  await Hive.openBox<ArticleLocal>(HiveSetup.Article);
+  await HiveSetup.init();
 
   // Set default home.
   Widget _defaultHome = new OnBoardingScreen();
@@ -53,7 +52,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => di.injector<NewsProvider>())
+        ChangeNotifierProvider(create: (context) => di.injector<NewsProvider>()),
+        ChangeNotifierProvider(create: (context) => di.injector<FootballProvider>())
       ],
       child: ThemeModeHandler(
         manager: AppTheme(),
@@ -81,10 +81,17 @@ class MyApp extends StatelessWidget {
             ),
             home: launcher,
             themeMode: themeMode,
+            onGenerateRoute: (RouteSettings settings){
+              var routes = <String, WidgetBuilder>{
+                '/footballDetails': (context) => FootballDetailsScreen(settings.arguments as League),
+                //others
+              };
+              WidgetBuilder builder = routes[settings.name];
+              return MaterialPageRoute(builder: (ctx) => builder(ctx));
+            },
             routes: {
               '/home': (context) => HomeScreen(),
               '/search': (context) => SearchScreen(),
-              '/footballDetails': (context) => FootballDetailsScreen(),
               '/table': (context) => TableScreen(),
             },
           );
