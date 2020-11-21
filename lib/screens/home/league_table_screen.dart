@@ -84,7 +84,7 @@ class TableScreen extends StatelessWidget {
               ),
             ),
             Container(
-              width: 50.0,
+              width: 55.0,
               padding:
                   const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
               child: Text(
