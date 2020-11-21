@@ -20,7 +20,7 @@ Clone the repository. The app make use of [football-data](https://www.football-d
 ## UI
 UI inspired by [here](https://www.uplabs.com/posts/profile-light-mode-and-dark-mode) and [here](https://www.uplabs.com/posts/sport-news-app-564029c3-8787-4417-87b8-9047a58b29b4)
 
-![alt text]()
+![alt text](https://github.com/Efhemo/football/tree/feature/games/screenshots)
 
 ## Libraries
 
