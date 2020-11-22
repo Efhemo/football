@@ -12,26 +12,26 @@ class TableScreen extends StatelessWidget {
     final League league = ModalRoute.of(context).settings.arguments;
     final nameWidth = MediaQuery.of(context).size.width / 2.4;
     return Scaffold(
-      body: Consumer<FootballProvider>(
-        builder: (context, provider, child) {
-          final table  = provider.table(league.id);
-          return CustomScrollView(
-            slivers: [
-              SliverCustomAppBar(
-                  title: league.name,
-                  iconLeading: Icons.arrow_back_ios,
-                  onLeadingTap: () {
-                    Navigator.pop(context);
-                  }),
-              SliverList(
+      body: CustomScrollView(
+        slivers: [
+          SliverCustomAppBar(
+              title: league.name,
+              iconLeading: Icons.arrow_back_ios,
+              onLeadingTap: () {
+                Navigator.pop(context);
+              }),
+          Consumer<FootballProvider>(
+            builder: (context, footballProvider, child ){
+              final table  = footballProvider.table(league.id);
+              return SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   final tableItem = table[index];
                   return _tableItem(tableItem, nameWidth);
                 }, childCount: table.length),
-              )
-            ],
-          );
-        },
+              );
+            },
+          )
+        ],
       ),
     );
   }
