@@ -1,8 +1,3 @@
-export 'package:football/domain/datasource/news_remote_datasource.dart';
-export 'package:football/domain/datasource/football_remote_datasource.dart';
-export 'package:football/domain/model/articles_remote.dart';
-export 'package:football/domain/model/news_response.dart';
-export 'package:football/domain/model/table_response.dart';
 export 'package:football/domain/repository/news_repository.dart';
 export 'package:football/domain/repository/football_repository.dart';
 export 'package:football/domain/model/failure.dart';

@@ -5,6 +5,13 @@ import 'package:football/model/table_item.dart';
 import 'package:football/model/team.dart';
 import 'package:football/model/user.dart';
 
+export 'package:football/data/model/news_response.dart';
+export 'package:football/data/model/table_response.dart';
+export 'package:football/data/datasource/footbal/news_remote_datasource.dart';
+export 'package:football/data/datasource/footbal/football_remote_datasource.dart';
+export 'package:football/data/model/articles_remote.dart';
+export 'package:football/data/model/table_response.dart';
+
 final User  user = User(name: "Femi", nickName: "Efhem", avatar: "https://avatars0.githubusercontent.com/u/40208739?s=400&u=8b3a525a482244fccf8dca5ab04c77d482ca8aae&v=4");
 
 final leagues = [

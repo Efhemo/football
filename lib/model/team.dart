@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:football/domain/model/league_table_local.dart';
+import 'package:football/data/model/league_table_local.dart';
 
 class Team {
   final int id;

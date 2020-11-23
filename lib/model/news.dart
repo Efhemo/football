@@ -1,4 +1,4 @@
-import 'package:football/domain/model/articles_local.dart';
+import 'package:football/data/model/articles_local.dart';
 
 class News {
   final int id;

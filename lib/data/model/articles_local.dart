@@ -1,4 +1,4 @@
-import 'package:football/domain/model/articles_remote.dart';
+import 'package:football/data/model/articles_remote.dart';
 import 'package:hive/hive.dart';
 
 part 'articles_local.g.dart';

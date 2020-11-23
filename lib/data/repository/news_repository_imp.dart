@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:football/data/datasource/datasource.dart';
 import 'package:football/data/datasource/news/news_local_data_source.dart';
 import 'package:football/domain/domain.dart';
-import 'package:football/domain/model/articles_local.dart';
+import 'package:football/data/model/articles_local.dart';
 import 'package:football/model/news.dart';
+import 'package:football/data/data.dart';
 
 class NewsRepositoryImp with NewsRepository {
   final NewsLocalDataSourceImpl newsLocalDataSourceImpl;
