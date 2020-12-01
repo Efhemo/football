@@ -1,5 +1,5 @@
 
-import 'package:football/domain/domain.dart';
+import 'package:football/data/data.dart';
 import 'package:hive/hive.dart';
 
 part 'league_table_local.g.dart';

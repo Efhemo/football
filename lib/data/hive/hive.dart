@@ -1,6 +1,5 @@
-
-import 'package:football/domain/model/articles_local.dart';
-import 'package:football/domain/model/league_table_local.dart';
+import 'package:football/data/model/articles_local.dart';
+import 'package:football/data/model/league_table_local.dart';
 import 'package:hive/hive.dart';
 
 class HiveSetup {

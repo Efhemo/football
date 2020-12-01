@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:football/data/hive/hive.dart';
-import 'package:football/domain/model/articles_local.dart';
+import 'package:football/data/model/articles_local.dart';
 import 'package:football/model/news.dart';
 import 'package:football/viewmodel/provider.dart';
 import 'package:football/widgets/widget.dart';

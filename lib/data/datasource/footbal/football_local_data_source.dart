@@ -1,5 +1,5 @@
 import 'package:football/data/hive/hive.dart';
-import 'package:football/domain/model/league_table_local.dart';
+import 'package:football/data/model/league_table_local.dart';
 import 'package:hive/hive.dart';
 
 class FootballLocalDataSourceImpl {

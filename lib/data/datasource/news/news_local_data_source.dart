@@ -1,5 +1,5 @@
 import 'package:football/data/hive/hive.dart';
-import 'package:football/domain/model/articles_local.dart';
+import 'package:football/data/model/articles_local.dart';
 import 'package:hive/hive.dart';
 
 class NewsLocalDataSourceImpl {

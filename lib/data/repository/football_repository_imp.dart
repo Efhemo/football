@@ -1,7 +1,7 @@
 import 'package:football/data/datasource/footbal/football_local_data_source.dart';
-import 'package:football/domain/datasource/football_remote_datasource.dart';
+import 'package:football/data/datasource/footbal/football_remote_datasource.dart';
 import 'package:football/domain/domain.dart';
-import 'package:football/domain/model/league_table_local.dart';
+import 'package:football/data/model/league_table_local.dart';
 import 'package:football/model/table_item.dart';
 import 'package:football/model/team.dart';
 
