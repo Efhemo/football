@@ -5,6 +5,8 @@ import 'package:football/model/team.dart';
 abstract class FootballRepository {
   Future<Either<Failure, int>> fetchTable(int leagueId);
 
+  Future<Either<Failure, int>> fetchGames(int leagueId);
+
   List<Team> getLeagueTeam(int leagueId);
 
   List<TableItem> getLeagueTable(int leagueId);

@@ -47,7 +47,7 @@ class _ApiService implements ApiService {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'competitions/$leagueId/standings',
+        'competitions/$leagueId/matches',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',
@@ -56,6 +56,30 @@ class _ApiService implements ApiService {
             baseUrl: baseUrl),
         data: _data);
     final value = TableResponse.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<GamesResponse> games(leagueId, dateFrom, dateTo) async {
+    ArgumentError.checkNotNull(leagueId, 'leagueId');
+    ArgumentError.checkNotNull(dateFrom, 'dateFrom');
+    ArgumentError.checkNotNull(dateTo, 'dateTo');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'dateFrom': dateFrom,
+      r'dateTo': dateTo
+    };
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        'competitions/$leagueId/matches',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = GamesResponse.fromJson(_result.data);
     return value;
   }
 }

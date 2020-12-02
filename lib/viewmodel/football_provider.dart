@@ -26,13 +26,24 @@ class FootballProvider extends BaseViewModel {
   List<Team> fiveTopTeams(){
     final teams = topTeams();
     teams.sort((a, b) => a.position.compareTo(b.position));
-    return teams.sublist(1, 5);
+    return teams.length > 5 ? teams.sublist(1, 5) : List<Team>();
   }
 
   void fetchTable(int leagueId) async {
     await Future.delayed(Duration(milliseconds: 500));
     setViewState(ViewState.loading);
     final result = await footballRepository.fetchTable(leagueId);
+    result.fold(
+            (l) => setError(l),
+            (r) => setError(null)
+    );
+    setViewState(ViewState.loaded);
+  }
+
+  void fetchGames(int leagueId) async {
+    await Future.delayed(Duration(milliseconds: 500));
+    setViewState(ViewState.loading);
+    final result = await footballRepository.fetchGames(leagueId);
     result.fold(
             (l) => setError(l),
             (r) => setError(null)

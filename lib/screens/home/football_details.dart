@@ -26,6 +26,7 @@ class _FootballDetailsScreenState extends State<FootballDetailsScreen> {
     super.initState();
     Future.delayed(Duration.zero, (){
       Provider.of<FootballProvider>(context, listen: false).fetchTable(widget.league.id);
+      Provider.of<FootballProvider>(context, listen: false).fetchGames(widget.league.id);
     });
   }
 
@@ -57,7 +58,10 @@ class _FootballDetailsScreenState extends State<FootballDetailsScreen> {
                   builder: (context, footballProvider, child) {
                     if (footballProvider.failure != null) {
                       Util.showSnackBar(context, footballProvider.failure.message,
-                              ()=> Provider.of<FootballProvider>(context, listen: false).fetchTable(widget.league.id));
+                              () {
+                                Provider.of<FootballProvider>(context, listen: false).fetchTable(widget.league.id);
+                                Provider.of<FootballProvider>(context, listen: false).fetchGames(widget.league.id);
+                              });
                     }
                     return Container(
                       height: 90.0,

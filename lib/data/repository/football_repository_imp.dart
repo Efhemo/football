@@ -1,5 +1,6 @@
 import 'package:football/data/datasource/footbal/football_local_data_source.dart';
 import 'package:football/data/datasource/footbal/football_remote_datasource.dart';
+import 'package:football/data/model/games_local.dart';
 import 'package:football/domain/domain.dart';
 import 'package:football/data/model/league_table_local.dart';
 import 'package:football/model/table_item.dart';
@@ -27,6 +28,29 @@ class FootballRepositoryImp implements FootballRepository {
         saveResult = left(Failure(message: "Empty table"));
     } else
       saveResult = apiResult.flatMap((a) => null);
+
+    return saveResult;
+  }
+
+  @override
+  Future<Either<Failure, int>> fetchGames(int leagueId) async {
+
+    Either<Failure, int> saveResult;
+
+    final apiResult = await footballRemoteDataSource.games(leagueId);
+
+    if (apiResult.isRight()) {
+      final response = apiResult.getOrElse(() => null);
+      if (response != null) {
+        response.matches.forEach((element) async {
+          final homeTeamLogo = footballLocalDataSourceImpl.teamLogo(element.homeTeam.id);
+          final awayTeamLogo = footballLocalDataSourceImpl.teamLogo(element.awayTeam.id);
+          await footballLocalDataSourceImpl.saveGame(element.id,
+              GamesLocal.fromMatches(response.competition, element, homeTeamLogo, awayTeamLogo));
+        });
+        saveResult = Right(1);
+      } else saveResult = left(Failure(message: "Empty game"));
+    } else saveResult = apiResult.flatMap((a) => null);
 
     return saveResult;
   }

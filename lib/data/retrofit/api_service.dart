@@ -1,3 +1,4 @@
+import 'package:football/data/model/games_response.dart';
 import 'package:football/domain/domain.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:retrofit/http.dart';
@@ -25,6 +26,13 @@ abstract class ApiService {
     @Query("apiKey") String apiKey,
   });
 
-  @GET("competitions/{id}/standings")
+  @GET("competitions/{id}/matches")
   Future<TableResponse> standings ( @Path("id") int leagueId);
+
+  @GET("competitions/{id}/matches")
+  Future<GamesResponse> games (
+      @Path("id") int leagueId,
+      @Query("dateFrom") String dateFrom,
+      @Query("dateTo") String dateTo
+      );
 }
