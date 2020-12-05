@@ -42,6 +42,8 @@ class GamesLocal {
   String awayTeamName;
   @HiveField(17)
   String awayTeamLogo;
+  @HiveField(18)
+  String lastUpdated;
 
   GamesLocal(
       this.leagueId,
@@ -61,7 +63,8 @@ class GamesLocal {
       this.homeTeamLogo,
       this.awayTeamId,
       this.awayTeamName,
-      this.awayTeamLogo);
+      this.awayTeamLogo,
+      this.lastUpdated);
 
   static GamesLocal fromMatches(Competition competition, Matches match,
       String homeTeamLogo, String awayTeamLogo){
@@ -81,6 +84,8 @@ class GamesLocal {
         homeTeamLogo,
         match.awayTeam.id,
         match.awayTeam.name,
-        awayTeamLogo);
+        awayTeamLogo,
+        match.lastUpdated
+    );
   }
 }

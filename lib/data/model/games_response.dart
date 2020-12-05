@@ -36,6 +36,7 @@ class Matches {
   String utcDate;
   String status;
   int matchday;
+  String lastUpdated;
   Score score;
   HomeTeam homeTeam;
   HomeTeam awayTeam;
@@ -45,6 +46,7 @@ class Matches {
         this.utcDate,
         this.status,
         this.matchday,
+        this.lastUpdated,
         this.score,
         this.homeTeam,
         this.awayTeam});
@@ -54,6 +56,7 @@ class Matches {
     utcDate = json['utcDate'];
     status = json['status'];
     matchday = json['matchday'];
+    lastUpdated = json['lastUpdated'];
     score = json['score'] != null ? new Score.fromJson(json['score']) : null;
     homeTeam = json['homeTeam'] != null
         ? new HomeTeam.fromJson(json['homeTeam'])
@@ -69,6 +72,7 @@ class Matches {
     data['utcDate'] = this.utcDate;
     data['status'] = this.status;
     data['matchday'] = this.matchday;
+    data['lastUpdated'] = this.lastUpdated;
     if (this.score != null) {
       data['score'] = this.score.toJson();
     }

@@ -6,7 +6,6 @@ import 'package:hive/hive.dart';
 class FootballLocalDataSourceImpl {
 
   final Box<LeagueTableLocal> _leagueTableBox = Hive.box(HiveSetup.LeagueTeam);
-  final Box<GamesLocal> _gamesBox = Hive.box(HiveSetup.Games);
 
   void saveTeam(int teamId, LeagueTableLocal team){
     Future.value([_leagueTableBox.put(teamId, team)]);
@@ -22,16 +21,8 @@ class FootballLocalDataSourceImpl {
 
   List<LeagueTableLocal> topTeams() =>  _leagueTableBox.values.where((element) => element.position < 5).toList();
 
-  String teamLogo(int teamId) =>
-    _leagueTableBox.values.firstWhere((element) => element.teamId ==  teamId).teamLogo ?? "";
-
-
-  Future<void> saveGame(int matchId, GamesLocal gamesLocal) async {
-    _gamesBox.put(matchId, gamesLocal);
-  }
-
-  Future<void> saveGames(List<GamesLocal> _games) async {
-    final Map<int, GamesLocal> games = Map.fromIterable(_games, key: (v) => v.id, value: (v) => v);
-    return await _gamesBox.putAll(games);
+  String teamLogo(int teamId) {
+    final leagueTable = _leagueTableBox.values.firstWhere((element) => element.teamId == teamId, orElse: null);
+    return leagueTable != null ? leagueTable.teamLogo : "";
   }
 }

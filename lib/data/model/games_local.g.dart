@@ -32,13 +32,14 @@ class GamesLocalAdapter extends TypeAdapter<GamesLocal> {
       fields[15] as int,
       fields[16] as String,
       fields[17] as String,
+      fields[18] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, GamesLocal obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(19)
       ..writeByte(0)
       ..write(obj.leagueId)
       ..writeByte(1)
@@ -74,6 +75,8 @@ class GamesLocalAdapter extends TypeAdapter<GamesLocal> {
       ..writeByte(16)
       ..write(obj.awayTeamName)
       ..writeByte(17)
-      ..write(obj.awayTeamLogo);
+      ..write(obj.awayTeamLogo)
+      ..writeByte(18)
+      ..write(obj.lastUpdated);
   }
 }

@@ -42,9 +42,9 @@ class MatchItem extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text("13:30", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+                    Text(match.playTime, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
                     SizedBox(height: 12.0),
-                    Text("18 JAN", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 14.0))
+                    Text(match.playDate, style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 14.0))
                   ],
                 ),
               ],

@@ -3,6 +3,7 @@ import 'package:football/data/datasource/footbal/football_remote_datasource.dart
 import 'package:football/data/model/games_local.dart';
 import 'package:football/domain/domain.dart';
 import 'package:football/data/model/league_table_local.dart';
+import 'package:football/model/match.dart';
 import 'package:football/model/table_item.dart';
 import 'package:football/model/team.dart';
 
@@ -33,22 +34,24 @@ class FootballRepositoryImp implements FootballRepository {
   }
 
   @override
-  Future<Either<Failure, int>> fetchGames(int leagueId) async {
+  Future<Either<Failure, List<Match>>> fetchGames(int leagueId) async {
 
-    Either<Failure, int> saveResult;
+    Either<Failure, List<Match>> saveResult;
 
     final apiResult = await footballRemoteDataSource.games(leagueId);
 
     if (apiResult.isRight()) {
       final response = apiResult.getOrElse(() => null);
       if (response != null) {
-        response.matches.forEach((element) async {
+        final games = response.matches.map((element) {
           final homeTeamLogo = footballLocalDataSourceImpl.teamLogo(element.homeTeam.id);
           final awayTeamLogo = footballLocalDataSourceImpl.teamLogo(element.awayTeam.id);
-          await footballLocalDataSourceImpl.saveGame(element.id,
-              GamesLocal.fromMatches(response.competition, element, homeTeamLogo, awayTeamLogo));
-        });
-        saveResult = Right(1);
+
+          //This implementation have diverge to being online first
+          final local = GamesLocal.fromMatches(response.competition, element, homeTeamLogo, awayTeamLogo);
+          return Match.fromGamesLocal(local);
+        }).toList();
+        saveResult = Right(games);
       } else saveResult = left(Failure(message: "Empty game"));
     } else saveResult = apiResult.flatMap((a) => null);
 
@@ -70,6 +73,5 @@ class FootballRepositoryImp implements FootballRepository {
   @override
   List<Team> topTeams() => footballLocalDataSourceImpl.topTeams().map((e) =>
       Team.fromTeamLocal(e)).toList();
-  
 
 }

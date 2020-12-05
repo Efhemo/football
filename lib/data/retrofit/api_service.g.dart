@@ -47,7 +47,7 @@ class _ApiService implements ApiService {
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     final _result = await _dio.request<Map<String, dynamic>>(
-        'competitions/$leagueId/matches',
+        'competitions/$leagueId/standings',
         queryParameters: queryParameters,
         options: RequestOptions(
             method: 'GET',

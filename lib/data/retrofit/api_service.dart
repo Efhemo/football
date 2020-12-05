@@ -26,7 +26,7 @@ abstract class ApiService {
     @Query("apiKey") String apiKey,
   });
 
-  @GET("competitions/{id}/matches")
+  @GET("competitions/{id}/standings")
   Future<TableResponse> standings ( @Path("id") int leagueId);
 
   @GET("competitions/{id}/matches")
