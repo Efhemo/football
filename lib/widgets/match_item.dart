@@ -42,9 +42,9 @@ class MatchItem extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text("13:30", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
+                    Text(match.playTime, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16.0)),
                     SizedBox(height: 12.0),
-                    Text("18 JAN", style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 14.0))
+                    Text(match.playDate, style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 14.0))
                   ],
                 ),
               ],
@@ -84,7 +84,7 @@ class MatchItem extends StatelessWidget {
                     children: <Widget>[
                       SvgPicture.network(match.homeImageUrl, width: 16.0, height: 16.0),
                       SizedBox(width: 8.0),
-                      Text(match.homeTeam, style: TextStyle( fontSize: 14.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
+                      Expanded(child: Text(match.homeTeam, style: TextStyle( fontSize: 14.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis)),
                     ],
                   ),
                 ),
@@ -109,7 +109,7 @@ class MatchItem extends StatelessWidget {
                     children: <Widget>[
                       SvgPicture.network(match.awayImageUrl, width: 16.0, height: 16.0),
                       SizedBox(width: 8.0),
-                      Text(match.awayTeam, style: TextStyle( fontSize: 14.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
+                      Expanded(child: Text(match.awayTeam, style: TextStyle( fontSize: 14.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis)),
                     ],
                   ),
                 ),

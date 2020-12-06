@@ -1,4 +1,6 @@
 import 'package:flutter/cupertino.dart';
+import 'package:football/data/model/games_local.dart';
+import 'package:football/domain/domain.dart';
 
 class Match {
   final int id;
@@ -27,4 +29,24 @@ class Match {
       this.awayScore,
       this.playTime,
       this.playDate});
+
+  static Match fromGamesLocal(GamesLocal gamesLocal) {
+    return Match(
+        id: gamesLocal.id,
+        homeImageUrl: gamesLocal.homeTeamLogo,
+        awayImageUrl: gamesLocal.awayTeamLogo,
+        currentMinute: "15",
+        isLive: gamesLocal.status == "LIVE" ||
+            gamesLocal.status == "IN_PLAY" ||
+            gamesLocal.status == "PAUSED",
+        league: gamesLocal.leagueName,
+        homeTeam: gamesLocal.homeTeamName,
+        awayTeam: gamesLocal.awayTeamName,
+        homeScore: gamesLocal.scoreFullTimeHomeTeam ??
+            gamesLocal.scoreHalfTimeHomeTeam,
+        awayScore: gamesLocal.scoreFullTimeAwayTeam ??
+            gamesLocal.scoreHalfTimeAwayTeam,
+        playTime: Utils.toAppTime(gamesLocal.utcDate),
+        playDate: Utils.toAppDate(gamesLocal.utcDate) );
+  }
 }
