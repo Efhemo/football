@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:football/domain/domain.dart';
 import 'package:football/model/news.dart';
 
 class NewsItem extends StatelessWidget {
@@ -85,7 +86,7 @@ class NewsItem extends StatelessWidget {
                 horizontal: 16.0, vertical: 14.0
               ),
               child: Text(
-                news.publishAt,
+                Utils.toAppDate(news.publishAt),
                 style: TextStyle(
                   color: Theme.of(context).highlightColor,
                     fontWeight: FontWeight.bold,

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:football/data/model/games_local.dart';
+import 'package:football/domain/domain.dart';
 
 class Match {
   final int id;
@@ -45,6 +46,7 @@ class Match {
             gamesLocal.scoreHalfTimeHomeTeam,
         awayScore: gamesLocal.scoreFullTimeAwayTeam ??
             gamesLocal.scoreHalfTimeAwayTeam,
-        playTime: "13:30", playDate: "18 JAN" );
+        playTime: Utils.toAppTime(gamesLocal.utcDate),
+        playDate: Utils.toAppDate(gamesLocal.utcDate) );
   }
 }

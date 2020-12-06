@@ -52,12 +52,8 @@ class FootballProvider extends BaseViewModel {
 
     final result = await footballRepository.fetchGames(leagueId);
     result.fold((l) => setError(l), (r) {
-      print("match length is ${r.length}");
       _liveMatch = r.where((e) => e.isLive).toList();
       _nonLiveMatch = r.where((e) => e.isLive == false).toList();
-      print("match length _nonLiveMatch is ${_nonLiveMatch.length}");
-      print("match length nonLiveMatch is ${nonLiveMatch.length}");
-
       notifyListeners();
     });
     setViewState(ViewState.loaded);
