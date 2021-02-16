@@ -14,11 +14,10 @@ class MatchItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeMode = ThemeModeHandler.of(context).themeMode;
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
-          color: themeMode == ThemeMode.light ? Colors.white : Palette.darkGrey,
+          color: Theme.of(context).cardColor,
           boxShadow: [
             BoxShadow(
                 color: Colors.grey.withOpacity(0.5),

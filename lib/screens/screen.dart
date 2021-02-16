@@ -5,5 +5,5 @@ export 'home_screen.dart';
 export 'home/search_screen.dart';
 export 'home/football_details.dart';
 export 'home/league_table_screen.dart';
-export 'news_screen.dart';
+export 'news/news_screen.dart';
 export 'bookmark_screen.dart';

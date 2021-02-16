@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:football/config/palette.dart';
 import 'package:football/screens/screen.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:theme_mode_handler/theme_mode_handler.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -26,6 +28,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    Palette.setUpStatusBarThemeMode(ThemeModeHandler.of(context).themeMode);
+
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
