@@ -60,7 +60,11 @@ class _NewsScreenState extends State<NewsScreen>
                   SliverCustomAppBar(flexibleTitle: "News"),
                   SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
-                    return NewsItem(news: News.fromArticle(keys[index], article[index]));
+                        final news = News.fromArticle(keys[index], article[index]);
+                    return NewsItem(
+                        news: news,
+                      onTap: () => Navigator.pushNamed(context, "/newsDetails", arguments: news),
+                    );
                   }, childCount: keys.length))
                 ],
               ),

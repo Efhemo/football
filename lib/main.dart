@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:football/config/config.dart';
 import 'package:football/config/theme.dart';
 import 'package:football/data/hive/hive.dart';
 import 'package:football/model/league.dart';
+import 'package:football/model/news.dart';
+import 'package:football/screens/news/news_details.dart';
 import 'package:football/utils/storage_util.dart';
 import 'package:football/viewmodel/provider.dart';
 import 'package:hive/hive.dart';
@@ -14,10 +17,6 @@ import 'injection_container.dart' as di;
 import 'package:path_provider/path_provider.dart' as path_provider;
 
 void main() async {
-//  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-//      systemNavigationBarColor: Colors.blue,
-//      statusBarColor: Colors.white
-//  ));
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
 
@@ -68,6 +67,7 @@ class MyApp extends StatelessWidget {
               cardColor: Palette.darkGrey,
               hoverColor: Palette.darkGrey,
               highlightColor: Colors.white54,
+              brightness: Brightness.dark
             ),
             theme: ThemeData.light().copyWith(
               primaryColor: Colors.blue,
@@ -78,12 +78,14 @@ class MyApp extends StatelessWidget {
               hoverColor: Palette.lightWhite,
               highlightColor: Colors.black54,
               visualDensity: VisualDensity.adaptivePlatformDensity,
+                brightness: Brightness.light
             ),
             home: launcher,
             themeMode: themeMode,
             onGenerateRoute: (RouteSettings settings){
               var routes = <String, WidgetBuilder>{
                 '/footballDetails': (context) => FootballDetailsScreen(settings.arguments as League),
+                '/newsDetails': (context) => NewsDetailsScreen(settings.arguments as News),
                 //others
               };
               WidgetBuilder builder = routes[settings.name];

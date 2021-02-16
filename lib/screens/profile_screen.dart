@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:football/config/palette.dart';
 import 'package:football/data/data.dart';
 import 'package:football/widgets/sliver_custom_appbar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -84,6 +85,7 @@ class ProfileScreen extends StatelessWidget {
       theme = ThemeMode.light;
     }
     ThemeModeHandler.of(context).saveThemeMode(theme);
+    Palette.setUpStatusBarThemeMode(theme);
     return isDarkMode;
   }
 

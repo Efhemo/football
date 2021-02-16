@@ -45,6 +45,8 @@ dependencies:
   flutter_spinkit: ^4.1.2
   #date format
   intl: ^0.16.1
+  #webview
+  webview_flutter: ^0.3.22+1
 
 dev_dependencies:
   flutter_test:
