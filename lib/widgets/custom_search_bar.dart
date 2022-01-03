@@ -48,6 +48,8 @@ class CustomSearchBar extends StatelessWidget {
         canStartSearch
             ? FlatButton(
                 child: Text(("Cancel")),
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
                 onPressed: () => Navigator.of(context).pop(),
               )
             : SizedBox.shrink()
