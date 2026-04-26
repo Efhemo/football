@@ -39,7 +39,7 @@ class _FootballDetailsScreenState extends State<FootballDetailsScreen> {
                 final teams  = provider.teams(widget.league.id);
                 if (provider.failure != null) {
                   Util.showSnackBar(
-                      context, provider.failure.message, () {
+                      context, provider.failure!.message, () {
                     provider.fetchTable(widget.league.id);
                     provider.fetchGames(widget.league.id);
                   });
@@ -142,7 +142,7 @@ class _FootballDetailsScreenState extends State<FootballDetailsScreen> {
           return Visibility(
             visible: footballProvider.state == ViewState.loading,
             child: SpinKitSquareCircle(
-              color: Theme.of(context).accentColor,
+              color: Theme.of(context).colorScheme.secondary,
               size: 50.0,
             ),
           );

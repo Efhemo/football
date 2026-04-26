@@ -4,12 +4,12 @@ part 'articles_remote.g.dart';
 
 @JsonSerializable()
 class Article {
-  String author;
-  String title;
-  String description;
-  String url;
-  String urlToImage;
-  String publishedAt;
+  String? author;
+  String? title;
+  String? description;
+  String? url;
+  String? urlToImage;
+  String? publishedAt;
 
   Article(
       {this.author,

@@ -1,10 +1,13 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class StorageUtil {
+mixin class StorageUtil {
 
   static Future<SharedPreferences> _pref() async => await SharedPreferences.getInstance();
 
-  get theme => _pref().then((value) => value.getString(_THEME_MODE));
+  Future<String> get theme async {
+    final pref = await _pref();
+    return pref.getString(_THEME_MODE) ?? '';
+  }
   Future<bool> setTheme(String themeValue) {
     return _pref().then((value) => value.setString(_THEME_MODE, themeValue));
   }

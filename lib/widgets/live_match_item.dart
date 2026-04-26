@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:football/config/palette.dart';
 import 'package:football/widgets/round_image.dart';
@@ -10,22 +9,22 @@ class LiveMatchItem extends StatelessWidget {
 
   final Match match;
 
-  const LiveMatchItem({Key key, this.match}) : super(key: key);
+  const LiveMatchItem({Key? key, required this.match}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final themeMode = ThemeModeHandler.of(context).themeMode;
+    final themeMode = ThemeModeHandler.of(context)?.themeMode ?? ThemeMode.system;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10.0),
           color: themeMode == ThemeMode.light ? Colors.white : Palette.darkGrey,
           boxShadow: [
             BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
+                color: Colors.grey.withValues(alpha: 0.5),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, 0.5)
-            )// changes position of shadow
+                offset: const Offset(0, 0.5)
+            )
           ]
       ),
       width: 250.0,
@@ -33,7 +32,7 @@ class LiveMatchItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -44,13 +43,13 @@ class LiveMatchItem extends StatelessWidget {
                   children: <Widget>[
                     Row(
                       children: [
-                        const Icon(Icons.arrow_drop_down_circle, size: 12.0,color: Colors.red),
-                        SizedBox(width: 4),
+                        const Icon(Icons.arrow_drop_down_circle, size: 12.0, color: Colors.red),
+                        const SizedBox(width: 4),
                         const Text("Live", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold))
                       ],
                     ),
-                    Text(match.currentMinute + "'",
-                        style: TextStyle(
+                    Text("${match.currentMinute ?? "0"}'",
+                        style: const TextStyle(
                             fontSize: 25.0,
                             fontWeight: FontWeight.bold,
                             color: Colors.red))
@@ -60,8 +59,8 @@ class LiveMatchItem extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0 ),
-            child: Text(match.league, style: TextStyle(color: Colors.grey,fontSize: 12.0, fontWeight: FontWeight.bold),),
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
+            child: Text(match.league ?? "", style: const TextStyle(color: Colors.grey, fontSize: 12.0, fontWeight: FontWeight.bold)),
           ),
           _matchScore(match)
         ],
@@ -69,21 +68,16 @@ class LiveMatchItem extends StatelessWidget {
     );
   }
 
-  Widget _matchScore(Match match){
+  Widget _matchScore(Match match) {
     var putPointerHome = false;
     var putPointerAway = false;
 
-    if(match.homeScore == match.awayScore){
-      putPointerHome = false;
-      putPointerAway = false;
-    }
+    final homeScore = match.homeScore ?? 0;
+    final awayScore = match.awayScore ?? 0;
 
-    if(match.homeScore > match.awayScore){
+    if (homeScore > awayScore) {
       putPointerHome = true;
-      putPointerAway = false;
-    }
-    if(match.homeScore < match.awayScore){
-      putPointerHome = false;
+    } else if (homeScore < awayScore) {
       putPointerAway = true;
     }
 
@@ -93,15 +87,15 @@ class LiveMatchItem extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Expanded(child: Padding(
-              padding: const EdgeInsets.only(left: 10,top: 5, bottom: 5.0, right: 20),
-              child: Text(match.homeTeam, style: TextStyle( fontSize: 16.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
+              padding: const EdgeInsets.only(left: 10, top: 5, bottom: 5.0, right: 20),
+              child: Text(match.homeTeam ?? "", style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold), maxLines: 2, overflow: TextOverflow.ellipsis),
             )),
-            Container(
+            SizedBox(
               width: 35.0,
               child: Row(
                 children: <Widget>[
-                  Text(match.homeScore.toString(), style: TextStyle( fontSize: 16.0, fontWeight: FontWeight.bold)),
-                  putPointerHome ? Icon(MdiIcons.menuLeft) : SizedBox.shrink(),
+                  Text(homeScore.toString(), style: const TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
+                  putPointerHome ? Icon(MdiIcons.menuLeft) : const SizedBox.shrink(),
                 ],
               ),
             ),
@@ -112,14 +106,14 @@ class LiveMatchItem extends StatelessWidget {
           children: <Widget>[
             Expanded(child: Padding(
               padding: const EdgeInsets.only(left: 10, right: 20),
-              child: Text(match.awayTeam, maxLines: 2, style: TextStyle(fontWeight: FontWeight.w500, color: Colors.grey)),
+              child: Text(match.awayTeam ?? "", maxLines: 2, style: const TextStyle(fontWeight: FontWeight.w500, color: Colors.grey)),
             )),
-            Container(
+            SizedBox(
               width: 35.0,
               child: Row(
                 children: <Widget>[
-                  Text(match.awayScore.toString(), style: TextStyle( fontSize: 14.0, color: Colors.grey, fontWeight: FontWeight.w500)),
-                  putPointerAway ? Icon(MdiIcons.menuLeft) : SizedBox.shrink(),
+                  Text(awayScore.toString(), style: const TextStyle(fontSize: 14.0, color: Colors.grey, fontWeight: FontWeight.w500)),
+                  putPointerAway ? Icon(MdiIcons.menuLeft) : const SizedBox.shrink(),
                 ],
               ),
             ),

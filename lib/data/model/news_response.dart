@@ -5,9 +5,9 @@ part 'news_response.g.dart';
 
 @JsonSerializable()
 class NewsResponse {
-  String status;
-  int totalResults;
-  List<Article> articles;
+  String? status;
+  int? totalResults;
+  List<Article>? articles;
 
   NewsResponse({this.status, this.totalResults, this.articles});
 

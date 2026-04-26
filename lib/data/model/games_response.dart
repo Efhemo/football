@@ -1,30 +1,30 @@
 import 'package:football/data/model/table_response.dart';
 
 class GamesResponse {
-  Competition competition;
-  List<Matches> matches;
+  Competition? competition;
+  List<Matches>? matches;
 
   GamesResponse({this.competition, this.matches});
 
   GamesResponse.fromJson(Map<String, dynamic> json) {
     competition = json['competition'] != null
-        ? new Competition.fromJson(json['competition'])
+        ? Competition.fromJson(json['competition'])
         : null;
     if (json['matches'] != null) {
-      matches = new List<Matches>();
+      matches = <Matches>[];
       json['matches'].forEach((v) {
-        matches.add(new Matches.fromJson(v));
+        matches!.add(Matches.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.competition != null) {
-      data['competition'] = this.competition.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (competition != null) {
+      data['competition'] = competition!.toJson();
     }
-    if (this.matches != null) {
-      data['matches'] = this.matches.map((v) => v.toJson()).toList();
+    if (matches != null) {
+      data['matches'] = matches!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -32,14 +32,14 @@ class GamesResponse {
 
 
 class Matches {
-  int id;
-  String utcDate;
-  String status;
-  int matchday;
-  String lastUpdated;
-  Score score;
-  HomeTeam homeTeam;
-  HomeTeam awayTeam;
+  int? id;
+  String? utcDate;
+  String? status;
+  int? matchday;
+  String? lastUpdated;
+  Score? score;
+  HomeTeam? homeTeam;
+  HomeTeam? awayTeam;
 
   Matches(
       {this.id,
@@ -57,42 +57,42 @@ class Matches {
     status = json['status'];
     matchday = json['matchday'];
     lastUpdated = json['lastUpdated'];
-    score = json['score'] != null ? new Score.fromJson(json['score']) : null;
+    score = json['score'] != null ? Score.fromJson(json['score']) : null;
     homeTeam = json['homeTeam'] != null
-        ? new HomeTeam.fromJson(json['homeTeam'])
+        ? HomeTeam.fromJson(json['homeTeam'])
         : null;
     awayTeam = json['awayTeam'] != null
-        ? new HomeTeam.fromJson(json['awayTeam'])
+        ? HomeTeam.fromJson(json['awayTeam'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['utcDate'] = this.utcDate;
-    data['status'] = this.status;
-    data['matchday'] = this.matchday;
-    data['lastUpdated'] = this.lastUpdated;
-    if (this.score != null) {
-      data['score'] = this.score.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['utcDate'] = utcDate;
+    data['status'] = status;
+    data['matchday'] = matchday;
+    data['lastUpdated'] = lastUpdated;
+    if (score != null) {
+      data['score'] = score!.toJson();
     }
-    if (this.homeTeam != null) {
-      data['homeTeam'] = this.homeTeam.toJson();
+    if (homeTeam != null) {
+      data['homeTeam'] = homeTeam!.toJson();
     }
-    if (this.awayTeam != null) {
-      data['awayTeam'] = this.awayTeam.toJson();
+    if (awayTeam != null) {
+      data['awayTeam'] = awayTeam!.toJson();
     }
     return data;
   }
 }
 
 class Score {
-  String winner;
-  String duration;
-  FullTime fullTime;
-  FullTime halfTime;
-  ExtraTime extraTime;
-  ExtraTime penalties;
+  String? winner;
+  String? duration;
+  FullTime? fullTime;
+  FullTime? halfTime;
+  ExtraTime? extraTime;
+  ExtraTime? penalties;
 
   Score(
       {this.winner,
@@ -106,42 +106,42 @@ class Score {
     winner = json['winner'];
     duration = json['duration'];
     fullTime = json['fullTime'] != null
-        ? new FullTime.fromJson(json['fullTime'])
+        ? FullTime.fromJson(json['fullTime'])
         : null;
     halfTime = json['halfTime'] != null
-        ? new FullTime.fromJson(json['halfTime'])
+        ? FullTime.fromJson(json['halfTime'])
         : null;
     extraTime = json['extraTime'] != null
-        ? new ExtraTime.fromJson(json['extraTime'])
+        ? ExtraTime.fromJson(json['extraTime'])
         : null;
     penalties = json['penalties'] != null
-        ? new ExtraTime.fromJson(json['penalties'])
+        ? ExtraTime.fromJson(json['penalties'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['winner'] = this.winner;
-    data['duration'] = this.duration;
-    if (this.fullTime != null) {
-      data['fullTime'] = this.fullTime.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['winner'] = winner;
+    data['duration'] = duration;
+    if (fullTime != null) {
+      data['fullTime'] = fullTime!.toJson();
     }
-    if (this.halfTime != null) {
-      data['halfTime'] = this.halfTime.toJson();
+    if (halfTime != null) {
+      data['halfTime'] = halfTime!.toJson();
     }
-    if (this.extraTime != null) {
-      data['extraTime'] = this.extraTime.toJson();
+    if (extraTime != null) {
+      data['extraTime'] = extraTime!.toJson();
     }
-    if (this.penalties != null) {
-      data['penalties'] = this.penalties.toJson();
+    if (penalties != null) {
+      data['penalties'] = penalties!.toJson();
     }
     return data;
   }
 }
 
 class FullTime {
-  int homeTeam;
-  int awayTeam;
+  int? homeTeam;
+  int? awayTeam;
 
   FullTime({this.homeTeam, this.awayTeam});
 
@@ -151,16 +151,16 @@ class FullTime {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['homeTeam'] = this.homeTeam;
-    data['awayTeam'] = this.awayTeam;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['homeTeam'] = homeTeam;
+    data['awayTeam'] = awayTeam;
     return data;
   }
 }
 
 class ExtraTime {
-  int homeTeam;
-  int awayTeam;
+  int? homeTeam;
+  int? awayTeam;
 
   ExtraTime({this.homeTeam, this.awayTeam});
 
@@ -170,16 +170,16 @@ class ExtraTime {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['homeTeam'] = this.homeTeam;
-    data['awayTeam'] = this.awayTeam;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['homeTeam'] = homeTeam;
+    data['awayTeam'] = awayTeam;
     return data;
   }
 }
 
 class HomeTeam {
-  int id;
-  String name;
+  int? id;
+  String? name;
 
   HomeTeam({this.id, this.name});
 
@@ -189,9 +189,9 @@ class HomeTeam {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
     return data;
   }
 }

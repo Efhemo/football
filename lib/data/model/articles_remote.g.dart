@@ -8,12 +8,12 @@ part of 'articles_remote.dart';
 
 Article _$ArticleFromJson(Map<String, dynamic> json) {
   return Article(
-    author: json['author'] as String,
-    title: json['title'] as String,
-    description: json['description'] as String,
-    url: json['url'] as String,
-    urlToImage: json['urlToImage'] as String,
-    publishedAt: json['publishedAt'] as String,
+    author: json['author'] as String?,
+    title: json['title'] as String?,
+    description: json['description'] as String?,
+    url: json['url'] as String?,
+    urlToImage: json['urlToImage'] as String?,
+    publishedAt: json['publishedAt'] as String?,
   );
 }
 

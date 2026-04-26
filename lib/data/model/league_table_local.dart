@@ -4,57 +4,60 @@ import 'package:hive/hive.dart';
 
 part 'league_table_local.g.dart';
 
-@HiveType()
+@HiveType(typeId: 1)
 class LeagueTableLocal {
   @HiveField(0)
-  int id; //league id
+  int? id;
   @HiveField(1)
-  String leagueName;
+  String? leagueName;
   @HiveField(2)
-  int position;
+  int? position;
   @HiveField(3)
-  int teamId;
+  int? teamId;
   @HiveField(4)
-  String teamName;
+  String? teamName;
   @HiveField(5)
-  String teamLogo;
+  String? teamLogo;
   @HiveField(6)
-  int playedGames;
+  int? playedGames;
   @HiveField(7)
-  String form;
+  String? form;
   @HiveField(8)
-  int won;
+  int? won;
   @HiveField(9)
-  int draw;
+  int? draw;
   @HiveField(10)
-  int lost;
+  int? lost;
   @HiveField(11)
-  int points;
+  int? points;
   @HiveField(12)
-  int goalsFor;
+  int? goalsFor;
   @HiveField(13)
-  int goalsAgainst;
+  int? goalsAgainst;
   @HiveField(14)
-  int goalDifference;
+  int? goalDifference;
 
   LeagueTableLocal(this.id, this.leagueName, this.position, this.teamId,
       this.teamName, this.teamLogo, this.playedGames, this.form, this.won,
       this.draw, this.lost, this.points, this.goalsFor, this.goalsAgainst,
       this.goalDifference);
 
-  static List<LeagueTableLocal> fromTable(TableResponse tableResponse) {
-    final leagueId = tableResponse.competition.id;
-    final leagueName = tableResponse.competition.name;
-    final standing  = tableResponse.standings[0];
-    if(standing != null && standing.table.isNotEmpty){
-      return standing.table.map((table) =>
-           LeagueTableLocal(leagueId, leagueName, table.position, table.team.id,
-               table.team.name, table.team.crestUrl, table.playedGames, table.form,
-               table.won, table.draw, table.lost, table.points, table.goalsFor,
-               table.goalsAgainst, table.goalDifference)
-    ).toList();
-
-    } else return null;
-
+  static List<LeagueTableLocal>? fromTable(TableResponse tableResponse) {
+    final leagueId = tableResponse.competition?.id;
+    final leagueName = tableResponse.competition?.name;
+    final standings = tableResponse.standings;
+    if (standings == null || standings.isEmpty) return null;
+    final standing = standings[0];
+    final table = standing.table;
+    if (table != null && table.isNotEmpty) {
+      return table.map((t) =>
+           LeagueTableLocal(leagueId, leagueName, t.position, t.team?.id,
+               t.team?.name, t.team?.crestUrl, t.playedGames, t.form,
+               t.won, t.draw, t.lost, t.points, t.goalsFor,
+               t.goalsAgainst, t.goalDifference)
+      ).toList();
+    } else {
+      return null;
+    }
   }
 }

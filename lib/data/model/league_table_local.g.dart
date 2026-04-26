@@ -8,27 +8,30 @@ part of 'league_table_local.dart';
 
 class LeagueTableLocalAdapter extends TypeAdapter<LeagueTableLocal> {
   @override
+  final int typeId = 1;
+
+  @override
   LeagueTableLocal read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return LeagueTableLocal(
-      fields[0] as int,
-      fields[1] as String,
-      fields[2] as int,
-      fields[3] as int,
-      fields[4] as String,
-      fields[5] as String,
-      fields[6] as int,
-      fields[7] as String,
-      fields[8] as int,
-      fields[9] as int,
-      fields[10] as int,
-      fields[11] as int,
-      fields[12] as int,
-      fields[13] as int,
-      fields[14] as int,
+      fields[0] as int?,
+      fields[1] as String?,
+      fields[2] as int?,
+      fields[3] as int?,
+      fields[4] as String?,
+      fields[5] as String?,
+      fields[6] as int?,
+      fields[7] as String?,
+      fields[8] as int?,
+      fields[9] as int?,
+      fields[10] as int?,
+      fields[11] as int?,
+      fields[12] as int?,
+      fields[13] as int?,
+      fields[14] as int?,
     );
   }
 

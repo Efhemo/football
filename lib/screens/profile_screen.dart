@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:football/config/palette.dart';
 import 'package:football/data/data.dart';
@@ -10,60 +9,62 @@ import 'package:theme_mode_handler/theme_mode_handler.dart';
 class ProfileScreen extends StatelessWidget {
   final _user = user;
 
+  ProfileScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final themeMode = ThemeModeHandler.of(context).themeMode;
+    final themeMode = ThemeModeHandler.of(context)!.themeMode;
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
           SliverCustomAppBar(
               flexibleTitle: "Profile",
               trailing: IconButton(
-                  icon: Icon(Icons.track_changes), onPressed: () {})),
+                  icon: const Icon(Icons.track_changes), onPressed: () {})),
           SliverToBoxAdapter(
             child: Column(
               children: <Widget>[
-                SizedBox(height: 50.0),
+                const SizedBox(height: 50.0),
                 Container(
                   height: 120.0,
                   width: 120.0,
-                  padding: EdgeInsets.all(20.0),
+                  padding: const EdgeInsets.all(20.0),
                   decoration: BoxDecoration(
                       color: themeMode == ThemeMode.dark
                           ? Colors.white
                           : Colors.black45,
                       shape: BoxShape.circle),
                   child: CircleAvatar(
-                    backgroundImage: CachedNetworkImageProvider(_user.avatar),
+                    backgroundImage: CachedNetworkImageProvider(_user.avatar ?? ""),
                   ),
                 ),
-                SizedBox(height: 14.0),
-                Text(_user.nickName,
-                    style: textTheme.headline6
-                        .copyWith(fontWeight: FontWeight.bold)),
-                SizedBox(height: 4.0),
-                Text(_user.name,
-                    style: textTheme.subtitle2
-                        .copyWith(fontWeight: FontWeight.w400))
+                const SizedBox(height: 14.0),
+                Text(_user.nickName ?? "",
+                    style: textTheme.titleLarge
+                        ?.copyWith(fontWeight: FontWeight.bold)),
+                const SizedBox(height: 4.0),
+                Text(_user.name ?? "",
+                    style: textTheme.bodySmall
+                        ?.copyWith(fontWeight: FontWeight.w400))
               ],
             ),
           ),
           SliverPadding(
-            padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 2.0),
+            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 2.0),
             sliver: SliverToBoxAdapter(
               child: Column(
                 children: <Widget>[
                   ListTile(
                     leading: Icon(MdiIcons.moonWaningCrescent, size: 30.0),
-                    title: Text("Dark mode",
+                    title: const Text("Dark mode",
                         style: TextStyle(fontWeight: FontWeight.w500)),
                     trailing: Switch.adaptive(
                       value: _isDarkMode(context),
                       onChanged: (value) {
                         _setTheme(value, context);
                       },
-                      activeColor: Colors.white,
+                      activeThumbColor: Colors.white,
                       inactiveThumbColor: Colors.black,
                       activeTrackColor: Colors.white,
                     ),
@@ -78,23 +79,13 @@ class ProfileScreen extends StatelessWidget {
   }
 
   bool _setTheme(bool isDarkMode, BuildContext context) {
-    var theme;
-    if (isDarkMode) {
-      theme = ThemeMode.dark;
-    } else {
-      theme = ThemeMode.light;
-    }
-    ThemeModeHandler.of(context).saveThemeMode(theme);
+    final theme = isDarkMode ? ThemeMode.dark : ThemeMode.light;
+    ThemeModeHandler.of(context)!.saveThemeMode(theme);
     Palette.setUpStatusBarThemeMode(theme);
     return isDarkMode;
   }
 
   bool _isDarkMode(BuildContext context) {
-    var theme = ThemeModeHandler.of(context).themeMode;
-    if (theme == ThemeMode.dark) {
-      return true;
-    } else {
-      return false;
-    }
+    return ThemeModeHandler.of(context)!.themeMode == ThemeMode.dark;
   }
 }

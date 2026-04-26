@@ -9,8 +9,7 @@ class Styles {
 //  );
 
   static const appBarTheme = AppBarTheme(
-    color: Colors.transparent,
-    brightness: Brightness.light,
+    backgroundColor: Colors.transparent,
     elevation: 0,
   );
 }

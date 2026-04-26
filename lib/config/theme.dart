@@ -4,9 +4,7 @@ import 'package:theme_mode_handler/theme_mode_manager_interface.dart';
 class AppTheme extends IThemeModeManager with StorageUtil {
 
   @override
-  Future<String> loadThemeMode() async {
-    return theme;
-  }
+  Future<String> loadThemeMode() => theme;
 
   @override
   Future<bool> saveThemeMode(String value) async {

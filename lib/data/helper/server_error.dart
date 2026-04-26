@@ -1,11 +1,10 @@
 import 'package:dio/dio.dart' hide Headers;
-import 'package:flutter/cupertino.dart';
 import 'package:football/domain/model/failure.dart';
 
 class ServerError implements Exception {
   String _errorMessage = "";
 
-  ServerError.withError({@required  DioError error}) {
+  ServerError.withError({required DioException error}) {
     _handleError(error);
   }
 
@@ -13,37 +12,41 @@ class ServerError implements Exception {
     return _errorMessage;
   }
 
-  _handleError(DioError error) {
+  _handleError(DioException error) {
     switch (error.type) {
-      case DioErrorType.CANCEL:
+      case DioExceptionType.cancel:
         _errorMessage = "Request was cancelled";
         break;
-      case DioErrorType.CONNECT_TIMEOUT:
+      case DioExceptionType.connectionTimeout:
         _errorMessage = "Connection timeout";
         break;
-      case DioErrorType.DEFAULT:
-        _errorMessage =
-        "Connection failed due to internet connection";
+      case DioExceptionType.unknown:
+        _errorMessage = "Connection failed due to internet connection";
         break;
-      case DioErrorType.RECEIVE_TIMEOUT:
+      case DioExceptionType.receiveTimeout:
         _errorMessage = "Receive timeout in connection";
         break;
-      case DioErrorType.RESPONSE:
+      case DioExceptionType.badResponse:
         _errorMessage = "Unknown Error";
         final errorBody = extractErrorBody(error);
-        if( errorBody != null){ _errorMessage = errorBody.message;}
+        if (errorBody != null) {
+          _errorMessage = errorBody.message;
+        }
         break;
-      case DioErrorType.SEND_TIMEOUT:
+      case DioExceptionType.sendTimeout:
         _errorMessage = "Receive timeout in send request";
+        break;
+      default:
+        _errorMessage = "An unexpected error occurred";
         break;
     }
     return _errorMessage;
   }
 
-  Failure extractErrorBody(DioError error){
+  Failure? extractErrorBody(DioException error) {
     try {
-      return Failure.fromJson(error.response.data);
-    } catch (e){
+      return Failure.fromJson(error.response?.data);
+    } catch (e) {
       return null;
     }
   }

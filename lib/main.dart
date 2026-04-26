@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:football/config/config.dart';
 import 'package:football/config/theme.dart';
 import 'package:football/data/hive/hive.dart';
@@ -20,22 +19,20 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
 
-  //hive
   final appDocumentDir = await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDir.path);
   await HiveSetup.init();
 
-  // Set default home.
-  Widget _defaultHome = new OnBoardingScreen();
+  Widget defaultHome = OnBoardingScreen();
   final hasBeenBoarded = await StorageUtil.getBoolean(StorageUtil.HAS_BOARDED);
-  if(hasBeenBoarded){_defaultHome = HomeScreen();}
+  if (hasBeenBoarded) { defaultHome = HomeScreen(); }
 
   _setUpLogging();
 
-  runApp(MyApp(launcher: _defaultHome));
+  runApp(MyApp(launcher: defaultHome));
 }
 
-void _setUpLogging(){
+void _setUpLogging() {
   Logger.root.level = Level.ALL;
   Logger.root.onRecord.listen((rec) {
     print("${rec.level.name}: ${rec.time}");
@@ -45,7 +42,7 @@ void _setUpLogging(){
 class MyApp extends StatelessWidget {
   final Widget launcher;
 
-  const MyApp({Key key, this.launcher}) : super(key: key);
+  const MyApp({Key? key, required this.launcher}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -63,32 +60,30 @@ class MyApp extends StatelessWidget {
             darkTheme: ThemeData.dark().copyWith(
               scaffoldBackgroundColor: Palette.backgroundColorDark,
               appBarTheme: Styles.appBarTheme,
-              accentColor: Colors.blueAccent,
+              colorScheme: const ColorScheme.dark(secondary: Colors.blueAccent),
               cardColor: Palette.darkGrey,
               hoverColor: Palette.darkGrey,
               highlightColor: Colors.white54,
-              brightness: Brightness.dark
             ),
             theme: ThemeData.light().copyWith(
               primaryColor: Colors.blue,
               scaffoldBackgroundColor: Palette.backgroundColor,
               appBarTheme: Styles.appBarTheme,
-              accentColor: Colors.blueAccent,
+              colorScheme: const ColorScheme.light(secondary: Colors.blueAccent),
               cardColor: Colors.white,
               hoverColor: Palette.lightWhite,
               highlightColor: Colors.black54,
               visualDensity: VisualDensity.adaptivePlatformDensity,
-                brightness: Brightness.light
             ),
             home: launcher,
-            themeMode: themeMode,
-            onGenerateRoute: (RouteSettings settings){
-              var routes = <String, WidgetBuilder>{
+            themeMode: ThemeMode.light,
+            onGenerateRoute: (RouteSettings settings) {
+              final routes = <String, WidgetBuilder>{
                 '/footballDetails': (context) => FootballDetailsScreen(settings.arguments as League),
                 '/newsDetails': (context) => NewsDetailsScreen(settings.arguments as News),
-                //others
               };
-              WidgetBuilder builder = routes[settings.name];
+              final builder = routes[settings.name];
+              if (builder == null) return null;
               return MaterialPageRoute(builder: (ctx) => builder(ctx));
             },
             routes: {

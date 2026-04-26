@@ -23,7 +23,7 @@ abstract class ApiService {
   Future<NewsResponse> news({
     @Query("category") String category = "sport",
     @Query("country") String country = "us",
-    @Query("apiKey") String apiKey,
+    @Query("apiKey") required String apiKey,
   });
 
   @GET("competitions/{id}/standings")

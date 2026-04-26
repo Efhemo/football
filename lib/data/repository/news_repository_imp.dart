@@ -1,13 +1,12 @@
 import 'dart:async';
 
 import 'package:football/data/datasource/datasource.dart';
-import 'package:football/data/datasource/news/news_local_data_source.dart';
 import 'package:football/domain/domain.dart';
 import 'package:football/data/model/articles_local.dart';
 import 'package:football/model/news.dart';
 import 'package:football/data/data.dart';
 
-class NewsRepositoryImp with NewsRepository {
+class NewsRepositoryImp implements NewsRepository {
   final NewsLocalDataSourceImpl newsLocalDataSourceImpl;
   final NewsRemoteDataSource newsRemoteRepository;
   final SecretLoader secretLoader;
@@ -16,28 +15,21 @@ class NewsRepositoryImp with NewsRepository {
 
   @override
   Future<Either<Failure, List<int>>> fetchNews() async {
-    Either<Failure, List<int>> saveResult;
-
     final apiKey = await secretLoader.load();
-
     final apiResult = await newsRemoteRepository.sport(apiKey.newsApiKey);
-
-    if (apiResult.isRight()) {
-      final result = apiResult.getOrElse(() => null);
-      if (result.articles != null) {
-        await newsLocalDataSourceImpl.deleteAll();
-        final listOfKeys = await newsLocalDataSourceImpl.saveArticles(
-            result.articles.map((e) => ArticleLocal.fromArticle(e)).toList());
-        saveResult = Right(listOfKeys);
-      } else
-        saveResult = left(Failure(message: "Empty news"));
-    } else
-      saveResult = apiResult.flatMap((a) => null);
-
-    return saveResult;
+    if (apiResult.isLeft()) {
+      return Left(apiResult.fold((f) => f, (_) => Failure()));
+    }
+    final result = apiResult.getOrElse(() => throw Exception("unexpected"));
+    final articles = result.articles;
+    if (articles == null) return Left(Failure(message: "Empty news"));
+    await newsLocalDataSourceImpl.deleteAll();
+    final listOfKeys = await newsLocalDataSourceImpl.saveArticles(
+        articles.map((e) => ArticleLocal.fromArticle(e)).toList());
+    return Right(listOfKeys);
   }
 
   @override
   Stream<News> watchNews() =>
-      newsLocalDataSourceImpl.watchArticle().map((event) => News.fromArticle(event.key, event.value));
+      newsLocalDataSourceImpl.watchArticle().map((event) => News.fromArticle(event.key as int, event.value));
 }

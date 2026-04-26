@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final _destinations = [
+  late final List<Widget> _destinations = [
     FootballScreen(),
     NewsScreen(),
     BookmarkScreen(),
@@ -28,8 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    Palette.setUpStatusBarThemeMode(ThemeModeHandler.of(context).themeMode);
+    Palette.setUpStatusBarThemeMode(ThemeModeHandler.of(context)!.themeMode);
 
     return Scaffold(
       body: IndexedStack(
@@ -46,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 title,
                 BottomNavigationBarItem(
                   icon: Icon(icon),
-                  title: Text(title)
+                  label: title,
                 )))
             .values
             .toList(),

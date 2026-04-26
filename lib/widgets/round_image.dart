@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class RoundImage extends StatelessWidget {
-  final String imageUrl;
+  final String? imageUrl;
   final bool isElevated;
   final bool isSelected;
-  final Function onTap;
+  final VoidCallback? onTap;
 
-  const RoundImage({Key key, @required this.imageUrl, this.isElevated = false, this.onTap, this.isSelected = false})
+  const RoundImage({Key? key, required this.imageUrl, this.isElevated = false, this.onTap, this.isSelected = false})
       : super(key: key);
 
   @override
@@ -22,17 +22,17 @@ class RoundImage extends StatelessWidget {
             shape: BoxShape.circle,
             boxShadow: isElevated ? [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
+                color: Colors.grey.withValues(alpha: 0.2),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, 0.5) // changes position of shadow
+                offset: const Offset(0, 0.5)
               )
-            ]: null,
+            ] : null,
           ),
           child: Container(
-            padding: EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(10.0),
             child: SvgPicture.network(
-              imageUrl,
+              imageUrl ?? "",
               width: 35.0,
             ),
           )),

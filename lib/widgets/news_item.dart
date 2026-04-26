@@ -5,9 +5,9 @@ import 'package:football/model/news.dart';
 
 class NewsItem extends StatelessWidget {
   final News news;
-  final Function onTap;
+  final VoidCallback? onTap;
 
-  const NewsItem({Key key, @required this.news, this.onTap}) : super(key: key);
+  const NewsItem({Key? key, required this.news, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class NewsItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         color: Theme.of(context).cardColor,
-        margin: EdgeInsets.symmetric(vertical: 15.0),
+        margin: const EdgeInsets.symmetric(vertical: 15.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -25,64 +25,64 @@ class NewsItem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.yellow,
                 image: DecorationImage(
-                    image: CachedNetworkImageProvider(news.urlToImage != null ? news.urlToImage : ""),
+                    image: CachedNetworkImageProvider(news.urlToImage ?? ""),
                     fit: BoxFit.cover),
               ),
               child: Stack(
                 children: <Widget>[
                   Positioned(
+                    bottom: 0.0,
+                    top: 0.0,
+                    left: 0.0,
+                    right: 0.0,
                     child: Container(
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            Colors.black.withOpacity(0.6),
+                            Colors.black.withValues(alpha: 0.6),
                             Colors.transparent
                           ],
                         ),
                       ),
                     ),
-                    bottom: 0.0,
-                    top: 0.0,
-                    left: 0.0,
-                    right: 0.0,
                   ),
                   Positioned(
                     bottom: 16.0,
                     left: 16.0,
                     right: 16.0,
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(news.author ?? "",
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18.0)),
-                        SizedBox(height: 16.0),
+                        const SizedBox(height: 16.0),
                         Text(
-                            news.title,
-                            style: TextStyle(
+                            news.title ?? "",
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18.0)),
                       ],
-                      crossAxisAlignment: CrossAxisAlignment.start,
                     ),
                   )
                 ],
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
               child: news.description != null ? Text(
-                news.description ?? "",
+                news.description!,
                 style: TextStyle(
                     color: Theme.of(context).highlightColor,
                     fontWeight: FontWeight.bold,
                     fontSize: 14.0),
-              ) : SizedBox.shrink(),
+              ) : const SizedBox.shrink(),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(
+              padding: const EdgeInsets.symmetric(
                 horizontal: 16.0, vertical: 14.0
               ),
               child: Text(

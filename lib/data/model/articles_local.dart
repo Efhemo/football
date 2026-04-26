@@ -3,31 +3,30 @@ import 'package:hive/hive.dart';
 
 part 'articles_local.g.dart';
 
-@HiveType()
+@HiveType(typeId: 0)
 class ArticleLocal {
   @HiveField(0)
-  String author;
+  String? author;
   @HiveField(1)
-  String title;
+  String? title;
   @HiveField(2)
-  String description;
+  String? description;
   @HiveField(3)
-  String url;
+  String? url;
   @HiveField(4)
-  String urlToImage;
+  String? urlToImage;
   @HiveField(5)
-  String publishedAt;
+  String? publishedAt;
 
   ArticleLocal(
-        this.author,
-        this.title,
+      this.author,
+      this.title,
+      this.description,
+      this.url,
+      this.urlToImage,
+      this.publishedAt);
 
-        this.description,
-        this.url,
-        this.urlToImage,
-        this.publishedAt);
-
-  static ArticleLocal fromArticle(Article article){
+  static ArticleLocal fromArticle(Article article) {
     return ArticleLocal(article.author, article.title,
         article.description, article.url, article.urlToImage,
         article.publishedAt);

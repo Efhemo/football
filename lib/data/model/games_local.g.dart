@@ -8,31 +8,34 @@ part of 'games_local.dart';
 
 class GamesLocalAdapter extends TypeAdapter<GamesLocal> {
   @override
+  final int typeId = 2;
+
+  @override
   GamesLocal read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
       for (var i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return GamesLocal(
-      fields[0] as int,
-      fields[1] as String,
-      fields[2] as int,
-      fields[3] as String,
-      fields[4] as String,
-      fields[5] as int,
-      fields[6] as String,
-      fields[7] as String,
-      fields[8] as int,
-      fields[9] as int,
-      fields[10] as int,
-      fields[11] as int,
-      fields[12] as int,
-      fields[13] as String,
-      fields[14] as String,
-      fields[15] as int,
-      fields[16] as String,
-      fields[17] as String,
-      fields[18] as String,
+      fields[0] as int?,
+      fields[1] as String?,
+      fields[2] as int?,
+      fields[3] as String?,
+      fields[4] as String?,
+      fields[5] as int?,
+      fields[6] as String?,
+      fields[7] as String?,
+      fields[8] as int?,
+      fields[9] as int?,
+      fields[10] as int?,
+      fields[11] as int?,
+      fields[12] as int?,
+      fields[13] as String?,
+      fields[14] as String?,
+      fields[15] as int?,
+      fields[16] as String?,
+      fields[17] as String?,
+      fields[18] as String?,
     );
   }
 

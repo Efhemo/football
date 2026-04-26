@@ -8,12 +8,11 @@ part of 'news_response.dart';
 
 NewsResponse _$NewsResponseFromJson(Map<String, dynamic> json) {
   return NewsResponse(
-    status: json['status'] as String,
-    totalResults: json['totalResults'] as int,
-    articles: (json['articles'] as List)
-        ?.map((e) =>
-            e == null ? null : Article.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    status: json['status'] as String?,
+    totalResults: json['totalResults'] as int?,
+    articles: (json['articles'] as List<dynamic>?)
+        ?.map((e) => Article.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 

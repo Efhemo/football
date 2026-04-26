@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class ListHeader extends StatelessWidget {
   final String headerTitle;
-  final String trailingTitle;
-  final Function onTrailingTap;
+  final String? trailingTitle;
+  final VoidCallback? onTrailingTap;
 
-  const ListHeader({Key key, @required this.headerTitle, this.onTrailingTap, this.trailingTitle}) : super(key: key);
+  const ListHeader({Key? key, required this.headerTitle, this.onTrailingTap, this.trailingTitle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +13,14 @@ class ListHeader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
         Text(headerTitle,
-            style: TextStyle(
+            style: const TextStyle(
                 fontWeight: FontWeight.w900, fontSize: 16.0)),
         trailingTitle != null ? InkWell(
           onTap: onTrailingTap,
-          child: Text(trailingTitle.toUpperCase(),
-              style: TextStyle(
+          child: Text(trailingTitle!.toUpperCase(),
+              style: const TextStyle(
                   fontWeight: FontWeight.w500, color: Colors.grey)),
-        ): SizedBox.shrink()
+        ) : const SizedBox.shrink()
       ],
     );
   }

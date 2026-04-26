@@ -15,47 +15,33 @@ class FootballRepositoryImp implements FootballRepository {
 
   @override
   Future<Either<Failure, int>> fetchTable(int leagueId) async {
-
-    Either<Failure, int> saveResult;
-
     final apiResult = await footballRemoteDataSource.table(leagueId);
-
-    if (apiResult.isRight()) {
-      final response = apiResult.getOrElse(() => null);
-      if (response != null) {
-        await footballLocalDataSourceImpl.saveTeams(LeagueTableLocal.fromTable(response));
-        saveResult = Right(1);
-      } else
-        saveResult = left(Failure(message: "Empty table"));
-    } else
-      saveResult = apiResult.flatMap((a) => null);
-
-    return saveResult;
+    if (apiResult.isLeft()) {
+      return Left(apiResult.fold((f) => f, (_) => Failure()));
+    }
+    final response = apiResult.getOrElse(() => throw Exception("unexpected"));
+    final teams = LeagueTableLocal.fromTable(response);
+    if (teams == null) return Left(Failure(message: "Empty table"));
+    await footballLocalDataSourceImpl.saveTeams(teams);
+    return Right(1);
   }
 
   @override
   Future<Either<Failure, List<Match>>> fetchGames(int leagueId) async {
-
-    Either<Failure, List<Match>> saveResult;
-
     final apiResult = await footballRemoteDataSource.games(leagueId);
-
-    if (apiResult.isRight()) {
-      final response = apiResult.getOrElse(() => null);
-      if (response != null) {
-        final games = response.matches.map((element) {
-          final homeTeamLogo = footballLocalDataSourceImpl.teamLogo(element.homeTeam.id);
-          final awayTeamLogo = footballLocalDataSourceImpl.teamLogo(element.awayTeam.id);
-
-          //This implementation have diverge to being online first
-          final local = GamesLocal.fromMatches(response.competition, element, homeTeamLogo, awayTeamLogo);
-          return Match.fromGamesLocal(local);
-        }).toList();
-        saveResult = Right(games);
-      } else saveResult = left(Failure(message: "Empty game"));
-    } else saveResult = apiResult.flatMap((a) => null);
-
-    return saveResult;
+    if (apiResult.isLeft()) {
+      return Left(apiResult.fold((f) => f, (_) => Failure()));
+    }
+    final response = apiResult.getOrElse(() => throw Exception("unexpected"));
+    final matches = response.matches;
+    if (matches == null) return Left(Failure(message: "Empty game"));
+    final games = matches.map((element) {
+      final homeTeamLogo = footballLocalDataSourceImpl.teamLogo(element.homeTeam?.id ?? 0);
+      final awayTeamLogo = footballLocalDataSourceImpl.teamLogo(element.awayTeam?.id ?? 0);
+      final local = GamesLocal.fromMatches(response.competition!, element, homeTeamLogo, awayTeamLogo);
+      return Match.fromGamesLocal(local);
+    }).toList();
+    return Right(games);
   }
 
   @override
@@ -73,5 +59,4 @@ class FootballRepositoryImp implements FootballRepository {
   @override
   List<Team> topTeams() => footballLocalDataSourceImpl.topTeams().map((e) =>
       Team.fromTeamLocal(e)).toList();
-
 }

@@ -28,6 +28,8 @@ class OnBoardingScreen extends StatelessWidget {
   final pageIndexNotifier = ValueNotifier<int>(0);
   final PageController _pageController = PageController();
 
+  OnBoardingScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,11 +49,11 @@ class OnBoardingScreen extends StatelessWidget {
               child:
               ValueListenableBuilder(
                 valueListenable: pageIndexNotifier,
-                builder: (context, index, child){
+                builder: (context, index, child) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      FlatButton(
+                      TextButton(
                           onPressed: () {},
                           child: const Text(
                             "Skip",
@@ -70,16 +72,16 @@ class OnBoardingScreen extends StatelessWidget {
                               color: index == 2 ? Colors.blue : Colors.grey)
                         ],
                       ),
-                      FlatButton(
+                      TextButton(
                           onPressed: () {
-                            if(index != 2){
+                            if (index != 2) {
                               _pageController.nextPage(duration: const Duration(milliseconds: 400), curve: Curves.easeInOut);
-                            }else {
+                            } else {
                               navigateToHome(context);
                             }
                           },
                           child: Text(index == 2 ? "Get started" : "Next",
-                            style: TextStyle(color: Colors.blue),
+                            style: const TextStyle(color: Colors.blue),
                           ))
                     ],
                   );
@@ -100,41 +102,39 @@ class OnBoardingItem extends StatelessWidget {
   final OnBoarding onBoarding;
   final int index;
 
-  const OnBoardingItem({Key key, this.onBoarding, this.index})
+  const OnBoardingItem({Key? key, required this.onBoarding, required this.index})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: LottieBuilder.network(
-                onBoarding.imageAsset,
-                repeat: false,
-                height: height * 0.55,
-              ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: LottieBuilder.network(
+              onBoarding.imageAsset,
+              repeat: false,
+              height: height * 0.55,
             ),
-            Text(onBoarding.headerTitle,
-                style: const TextStyle(
-                    fontSize: 20.0, fontWeight: FontWeight.bold)),
-            SizedBox(height: height * 0.03),
-            Expanded(
-                child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text(
-                onBoarding.subHeaderTitle,
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.fade,
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-            )),
-          ],
-        ),
+          ),
+          Text(onBoarding.headerTitle,
+              style: const TextStyle(
+                  fontSize: 20.0, fontWeight: FontWeight.bold)),
+          SizedBox(height: height * 0.03),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Text(
+              onBoarding.subHeaderTitle,
+              textAlign: TextAlign.center,
+              overflow: TextOverflow.fade,
+              style: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+          )),
+        ],
       ),
     );
   }

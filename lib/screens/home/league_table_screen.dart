@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 class TableScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final League league = ModalRoute.of(context).settings.arguments;
+    final League league = ModalRoute.of(context)!.settings.arguments as League;
     final nameWidth = MediaQuery.of(context).size.width / 2.4;
     return Scaffold(
       body: CustomScrollView(
@@ -21,8 +21,8 @@ class TableScreen extends StatelessWidget {
                 Navigator.pop(context);
               }),
           Consumer<FootballProvider>(
-            builder: (context, footballProvider, child ){
-              final table  = footballProvider.table(league.id);
+            builder: (context, footballProvider, child) {
+              final table = footballProvider.table(league.id);
               return SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   final tableItem = table[index];
@@ -46,31 +46,31 @@ class TableScreen extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
               child: Text(
-                tableItem.position.toString(),
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                (tableItem.position ?? 0).toString(),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
               ),
             ),
             Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: SvgPicture.network(tableItem.avatar,
+                child: SvgPicture.network(tableItem.avatar ?? "",
                     width: 16.0, height: 16.0)),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               width: nameWidth,
               child: Text(
-                tableItem.name,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                tableItem.name ?? "",
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
               ),
             ),
-            Expanded(child: SizedBox()),
+            const Expanded(child: SizedBox()),
             Container(
               width: 50.0,
               padding:
                   const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
               child: Text(
-                tableItem.gamePlayed.toString(),
+                (tableItem.gamePlayed ?? 0).toString(),
                 textAlign: TextAlign.end,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
               ),
             ),
             Container(
@@ -78,9 +78,9 @@ class TableScreen extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
               child: Text(
-                tableItem.goalDifference.toString(),
+                (tableItem.goalDifference ?? 0).toString(),
                 textAlign: TextAlign.end,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
               ),
             ),
             Container(
@@ -88,14 +88,14 @@ class TableScreen extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: 4.0, horizontal: 16.0),
               child: Text(
-                tableItem.point.toString(),
+                (tableItem.point ?? 0).toString(),
                 textAlign: TextAlign.end,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14.0),
               ),
             )
           ],
         ),
-        Divider(thickness: 1.5, indent: 2, endIndent: 2)
+        const Divider(thickness: 1.5, indent: 2, endIndent: 2)
       ],
     );
   }

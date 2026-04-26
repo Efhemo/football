@@ -26,14 +26,14 @@ class _NewsScreenState extends State<NewsScreen>
   }
 
   void showSnackBar(String message) {
-    Future.delayed(Duration(milliseconds: 500), (){
-      Scaffold.of(context).showSnackBar(SnackBar(
-        duration: Duration(days: 1),
+    Future.delayed(const Duration(milliseconds: 500), () {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        duration: const Duration(days: 1),
         content: Text(message),
         action: SnackBarAction(
             label: "Retry",
             onPressed: () {
-              Scaffold.of(context).hideCurrentSnackBar();
+              ScaffoldMessenger.of(context).hideCurrentSnackBar();
               Provider.of<NewsProvider>(context, listen: false).fetchNews();
             }),
       ));
@@ -50,17 +50,14 @@ class _NewsScreenState extends State<NewsScreen>
         builder: (BuildContext context, box, _) {
           final article = box.values.toList();
           final keys = box.keys.toList();
-          //or
-          //final key = box.keyAt(index);
-          //final article = box.getAt(index);
           return Stack(
             children: <Widget>[
               CustomScrollView(
                 slivers: <Widget>[
-                  SliverCustomAppBar(flexibleTitle: "News"),
+                  const SliverCustomAppBar(flexibleTitle: "News"),
                   SliverList(
                       delegate: SliverChildBuilderDelegate((context, index) {
-                        final news = News.fromArticle(keys[index], article[index]);
+                        final news = News.fromArticle(keys[index] as int, article[index]);
                     return NewsItem(
                         news: news,
                       onTap: () => Navigator.pushNamed(context, "/newsDetails", arguments: news),
@@ -70,12 +67,12 @@ class _NewsScreenState extends State<NewsScreen>
               ),
               Consumer<NewsProvider>(builder: (context, newsProvider, child) {
                 if (newsProvider.failure != null) {
-                  showSnackBar(newsProvider.failure.message);
+                  showSnackBar(newsProvider.failure!.message);
                 }
                 return Visibility(
                   visible: newsProvider.state == ViewState.loading,
                   child: SpinKitSquareCircle(
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     size: 50.0,
                   ),
                 );

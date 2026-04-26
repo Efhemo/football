@@ -4,46 +4,46 @@ import 'package:hive/hive.dart';
 
 part 'games_local.g.dart';
 
-@HiveType()
+@HiveType(typeId: 2)
 class GamesLocal {
   @HiveField(0)
-  int leagueId;
+  int? leagueId;
   @HiveField(1)
-  String leagueName;
+  String? leagueName;
   @HiveField(2)
-  int id; //match id
+  int? id;
   @HiveField(3)
-  String utcDate;
+  String? utcDate;
   @HiveField(4)
-  String status;
+  String? status;
   @HiveField(5)
-  int matchDay;
+  int? matchDay;
   @HiveField(6)
-  String winner;
+  String? winner;
   @HiveField(7)
-  String duration;
+  String? duration;
   @HiveField(8)
-  int scoreFullTimeHomeTeam;
+  int? scoreFullTimeHomeTeam;
   @HiveField(9)
-  int scoreFullTimeAwayTeam;
+  int? scoreFullTimeAwayTeam;
   @HiveField(10)
-  int scoreHalfTimeHomeTeam;
+  int? scoreHalfTimeHomeTeam;
   @HiveField(11)
-  int scoreHalfTimeAwayTeam;
+  int? scoreHalfTimeAwayTeam;
   @HiveField(12)
-  int homeTeamId;
+  int? homeTeamId;
   @HiveField(13)
-  String homeTeamName;
+  String? homeTeamName;
   @HiveField(14)
-  String homeTeamLogo;
+  String? homeTeamLogo;
   @HiveField(15)
-  int awayTeamId;
+  int? awayTeamId;
   @HiveField(16)
-  String awayTeamName;
+  String? awayTeamName;
   @HiveField(17)
-  String awayTeamLogo;
+  String? awayTeamLogo;
   @HiveField(18)
-  String lastUpdated;
+  String? lastUpdated;
 
   GamesLocal(
       this.leagueId,
@@ -67,23 +67,22 @@ class GamesLocal {
       this.lastUpdated);
 
   static GamesLocal fromMatches(Competition competition, Matches match,
-      String homeTeamLogo, String awayTeamLogo){
-
+      String homeTeamLogo, String awayTeamLogo) {
     return GamesLocal(
         competition.id,
         competition.name,
         match.id, match.utcDate, match.status, match.matchday,
-        match.score.winner,
-        match.score.duration,
-        match.score.fullTime.homeTeam, //scoreFullTimeHomeTeam
-        match.score.fullTime.awayTeam,
-        match.score.halfTime.homeTeam,
-        match.score.halfTime.awayTeam,
-        match.homeTeam.id, //homeTeamId,
-        match.homeTeam.name,
+        match.score?.winner,
+        match.score?.duration,
+        match.score?.fullTime?.homeTeam,
+        match.score?.fullTime?.awayTeam,
+        match.score?.halfTime?.homeTeam,
+        match.score?.halfTime?.awayTeam,
+        match.homeTeam?.id,
+        match.homeTeam?.name,
         homeTeamLogo,
-        match.awayTeam.id,
-        match.awayTeam.name,
+        match.awayTeam?.id,
+        match.awayTeam?.name,
         awayTeamLogo,
         match.lastUpdated
     );

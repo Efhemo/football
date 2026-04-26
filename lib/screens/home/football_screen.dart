@@ -28,7 +28,7 @@ class FootballScreen extends StatelessWidget {
                     decoration: const BoxDecoration(shape: BoxShape.circle),
                     child: CircleAvatar(
                       radius: 20.0,
-                      backgroundImage: CachedNetworkImageProvider(user.avatar),
+                      backgroundImage: CachedNetworkImageProvider(user.avatar ?? ""),
                     )),
               ),
             ),
